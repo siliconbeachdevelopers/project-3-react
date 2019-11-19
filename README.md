@@ -38,7 +38,3 @@
     - grid
 - navbar
 - CSS
-
-   
-    
-    

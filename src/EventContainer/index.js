@@ -22,11 +22,11 @@ class EventContainer extends Component {
   getEvents = async () => {
 
     try {
-      const events = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/');
+      const events = await fetch('https://www.thesportsdb.com/api/v1/json/1/all_sports.php');
       const parsedEvents = await events.json();
       console.log(parsedEvents);
       this.setState({
-       Events: parsedEvents.data
+       events: parsedEvents.sports
       })
     } catch(err){
       console.log(err);
@@ -41,25 +41,22 @@ class EventContainer extends Component {
   render() {
     return (
      <Grid celled>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <Image src='https://react.semantic-ui.com/images/wireframe/centered-paragraph.png' />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-            </Grid.Column>
-          </Grid.Row>
+
+          {
+            this.state.events.map(e => 
+              <Grid.Row>
+                <Grid.Column width={3}>
+                  <Image src={e.strSportThumb} />
+                </Grid.Column>
+                <Grid.Column width={10}>
+                  {e.strSportDescription}
+                </Grid.Column>
+                <Grid.Column width={3}>
+                  <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
+              </Grid.Row>
+            )
+          }
         </Grid>
       )
   
