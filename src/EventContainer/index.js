@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Image, } from 'semantic-ui-react';
-import CreateEvent from '../CreateEventForm';
 
 class EventContainer extends Component {
   constructor(props){
@@ -47,11 +46,9 @@ class EventContainer extends Component {
               <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
             </Grid.Column>
             <Grid.Column width={13}>
-              {/* <CreateEvent addEvent={this.addEvent} /> */}
               <Image src='https://react.semantic-ui.com/images/wireframe/centered-paragraph.png' />
             </Grid.Column>
           </Grid.Row>
-      
           <Grid.Row>
             <Grid.Column width={3}>
               <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />

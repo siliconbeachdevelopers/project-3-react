@@ -48,7 +48,7 @@ class CreateEvent extends Component {
           <Label>image:</Label>
           <Form.Input type='text' name='image' value={this.state.image} onChange={this.handleChange}/>
           
-          <Button type='Submit'>Create Dog</Button>
+          <Button type='Submit'>Create Event</Button>
         </Form>
       </Segment>
       )
