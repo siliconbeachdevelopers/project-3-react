@@ -3,9 +3,9 @@ import { Grid } from 'semantic-ui-react';
 
 
 
-function MyEvents(props){
+function MyEvent(props){
 
-    const ListEvents = props.events.map((event) => {
+    const events = props.events.map((event) => {
       return (
         <Grid key={event.id}>
           <Grid.Column>Mobile Fourth</Grid.Column>
@@ -21,7 +21,7 @@ function MyEvents(props){
  
  
  
-  export default MyEvents
+  export default MyEvent
 
 
 
