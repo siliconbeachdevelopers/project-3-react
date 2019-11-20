@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Image, } from 'semantic-ui-react';
-import CreateEventForm from '../CreateEventForm'
-import MyEvent from '../MyEvent'
+import './EventContainer.css'
 
 class EventContainer extends Component {
   constructor(props){
@@ -24,11 +23,15 @@ class EventContainer extends Component {
   getEvents = async () => {
 
     try {
-      const events = await fetch('https://www.thesportsdb.com/api/v1/json/1/all_sports.php');
+      const events = await fetch('https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=MTk1NTE3OTF8MTU3NDIzMTU5Ni4wMw');
       const parsedEvents = await events.json();
       console.log(parsedEvents);
+      parsedEvents.events.map(event => {
+        const prettyDate = new Date(event.datetime_local)
+        event.datetime_local = prettyDate.toDateString()
+      })
       this.setState({
-       events: parsedEvents.sports
+       events: parsedEvents.events
       })
     } catch(err){
       console.log(err);
@@ -63,27 +66,32 @@ class EventContainer extends Component {
   
   render() {
     return (
-     <Grid celled>
-
+     <Grid >
           {
-            this.state.events.map(e => 
-              <Grid.Row>
+           
+           this.state.events.map(e => 
+              <Grid.Row className='border'>
                 <Grid.Column width={3}>
                   <Image src={e.strSportThumb} />
+                  <span id='datetime'> {e.datetime_local } </span>
                 </Grid.Column>
-                <Grid.Column width={10}>
-                  {e.strSportDescription}
-                </Grid.Column>
+                <Grid.Column  width={10}>
+                <span id='headtitle'> {e.title} </span>
+                <span id='venuename'> {e.venue.name} </span>
+                <span id='city'> {e.venue.city} </span>
+                
+                </Grid.Column>                
                 <Grid.Column width={3}>
-                  <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                  <Image src={e.performers[0].image} />
                 </Grid.Column>
               </Grid.Row>
             )
           }
-        </Grid>
+      </Grid>
       )
   
     }
-  }
+  
+}
 
 export default EventContainer;

@@ -34,10 +34,10 @@ class App extends Component {
     }
   }
 
-  addEvent = async (e, eventFromTheForm) => {
-    e.preventDefault();
-    console.log(eventFromTheForm)
-  }
+  // addEvent = async (e, eventFromTheForm) => {
+  //   e.preventDefault();
+  //   console.log(eventFromTheForm)
+  // }
 
   render() {
     return (
