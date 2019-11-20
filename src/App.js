@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import './App.css';
+import Register from './Register'
 import EventContainer from './EventContainer'
 import NavBar from './NavBar'
 import CreateEventForm from './CreateEventForm';
