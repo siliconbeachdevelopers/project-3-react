@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Form, Label, Segment, Button } from 'semantic-ui-react';
 
-class CreateEvent extends Component {
+class CreateEventForm extends Component {
   constructor(){
     super();
 
@@ -55,4 +55,4 @@ class CreateEvent extends Component {
   }
 }
 
-export default CreateEvent
+export default CreateEventForm
