@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import EventList from '../EventList';
-import CreateEventForm from '../CreateEventForm';
 import EditEventModal from '../EditEventModal'
-
+import { Grid, Image } from 'semantic-ui-react'
 
 class EventContainer extends Component {
   constructor(props){
@@ -22,55 +21,22 @@ class EventContainer extends Component {
       showEditModal: false 
     }
   }
-
+  
   componentDidMount(){
     this.getEvents();
   }
   getEvents = async () => {
 
     try {
-      const events = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/',{
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json'
-          }
-      }); 
-  
+      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
       this.setState({
-        events: parsedEvents.data 
+        events: parsedEvents.events 
       })
     } catch(err){
       console.log(err);
     }
   }
-
-
-// POST REQUEST (here's where we connect with Flask)
-
-    addEvent = async (e, eventFromForm) => {
-      e.preventDefault();
-      console.log(eventFromForm)
-
-      try {
-        const createdEventResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/', { 
-            method: 'POST',
-            body: JSON.stringify(eventFromForm),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-       
-        const parsedResponse = await createdEventResponse.json();
-        console.log(parsedResponse, ' im a response')
-
-        this.setState({events: [...this.state.events, parsedResponse.data]})
-    } catch(err){
-        console.log('error')
-        console.log(err)
-    }
-}
       
 // DELETE ROUTE
 
@@ -130,16 +96,55 @@ class EventContainer extends Component {
 }
 
   render(){
-      console.log(this.state, 'this is state container')
     return (
     <div>
+      <Grid>
+         {
+          this.state.events.map((e, i) =>
+             <Grid.Row key={i}>
+               <Grid.Column width={3}>
+                 <Image src={e.strSportThumb} />
+               </Grid.Column>
+               <Grid.Column width={10}>
+                 {e.title}
+               </Grid.Column>
+               <Grid.Column width={3}>
+                 <Image src={e.performers[0].image} />
+               </Grid.Column>
+             </Grid.Row>
+           )
+          }
+          {
+          this.props.eventsCreated.map((e, i) =>
+            <div>
+            <Grid.Row>
+              <Grid.Column width={3}>
+              <Image src={e.image} />
+              </Grid.Column>
+              <Grid.Column width={10}>
+              {e.sport}
+              </Grid.Column>
+              <Grid.Column width={3}>
+              {e.teams}
+              <Grid.Column>
+              {e.date}
+              </Grid.Column>
+              {e.time}
+              </Grid.Column>
+              {e.location}
+              <Grid.Column>
+              {e.tickets}
+              </Grid.Column>
+            </Grid.Row>
+            </div>
+           )
+         }
+     </Grid>
+
       <EventList 
       events={this.state.events} 
       deleteEvent={this.deleteEvent}
       openAndEdit={this.openAndEdit}
-      /> 
-      <CreateEventForm 
-      addEvent={this.addEvent}
       /> 
       <EditEventModal 
       eventToEdit={this.state.eventToEdit}

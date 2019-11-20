@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import { Form, Button, Label, Segment } from 'semantic-ui-react';
 
 class CreateEvent extends Component {
@@ -45,9 +46,10 @@ class CreateEvent extends Component {
         
         <Button type='Submit'>Create Event</Button>
         </Form>
+        
       </Segment>
       )
   }
 }
 
-export default CreateEvent;
+export default withRouter(CreateEvent);

@@ -12,10 +12,10 @@ function EventList(props){
         <Grid.Column>{event.time}</Grid.Column>
         <Grid.Column>{event.location}</Grid.Column>
         <Grid.Column>{event.tickets}</Grid.Column>
-          <Grid extra>
+          {/* <Grid extra>
             <Button onClick={() => props.deleteEvent(event.id)}>Delete Event</Button>
-            <Button onClick={() => props.openAndEdit (event)}>Edit Event</Button>
-          </Grid>
+            <Button onClick={() => props.openAndEdit (event.id)}>Edit Event</Button>
+          </Grid> */}
       </Grid>
         
         )
