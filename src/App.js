@@ -1,57 +1,45 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import './App.css';
-import CreateEvent from './CreateEventForm'
-import EventContainer from './EventContainer'
-import NavBar from './NavBar'
+import EventContainer from './EventContainer';
+import { Route, Switch } from 'react-router-dom';
+import Register from './Register';
+import Header from './Header';
+import EventShow from './EventShow';
+
+console.log(EventContainer)
+
+const My404 = () => {
+  return (
+    <div>
+      You are lost lil buddy : /
+    </div>
+    )
+};
 
 class App extends Component {
-
   state = {
-    events: [],
-    sport: '',
-    teams: '',
-    date: '',
-    time: '',
-    location: '',
-    tickets: ''
+    currentUser: {}
   }
 
-
-  componentDidMount(){
-    this.getEvents();
-  }
-  getEvents = async () => {
-
-    try {
-      const events = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/');
-      const parsedEvents = await events.json();
-      console.log(parsedEvents);
-      this.setState({
-      Events: parsedEvents.data
-      })
-    } catch(err){
-      console.log(err);
-    }
-  }
-
-  addEvent = async (e, eventFromTheForm) => {
-    e.preventDefault();
-    console.log(eventFromTheForm)
+  doUpdateCurrentUser = (user) => { 
+    this.setState({
+      currentUser : user
+    })
   }
 
   render() {
-    return (
-      <div className="App">
-        <NavBar />
-        <Switch>
-          <Route exact path="/" component={EventContainer} />
-          <Route exact path="/form" render={() => <CreateEvent addEvent={this.addEvent} />} />
-        </Switch>
-      </div>
-    );
-
+  return ( 
+    <main> 
+      <Header currentUser = {this.state.currentUser} />
+      <Switch> 
+        <Route exact path='/' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
+        <Route exact path='/events' component={EventContainer} />
+        <Route exact path='/events/:id' component={EventShow} />
+        <Route component={My404} />
+      </Switch>
+    </main>
+    )
   }
 }
 
-export default withRouter(App);
+export default App;
