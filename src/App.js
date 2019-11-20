@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import './App.css';
-import CreateEvent from './CreateEventForm'
 import EventContainer from './EventContainer'
 import NavBar from './NavBar'
+import CreateEventForm from './CreateEventForm';
 
 class App extends Component {
 
@@ -16,7 +16,6 @@ class App extends Component {
     location: '',
     tickets: ''
   }
-
 
   componentDidMount(){
     this.getEvents();
@@ -46,7 +45,7 @@ class App extends Component {
         <NavBar />
         <Switch>
           <Route exact path="/" component={EventContainer} />
-          <Route exact path="/form" render={() => <CreateEvent addEvent={this.addEvent} />} />
+          <Route exact path="/form" render={() => <CreateEventForm addEvent={this.addEvent} />} />
         </Switch>
       </div>
     );
