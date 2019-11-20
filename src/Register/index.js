@@ -33,7 +33,7 @@ class Register extends Component {
 
         if(parsedResponse.status.message === 'Success'){
             this.props.doUpdateCurrentUser(parsedResponse.data) 
-            this.props.history.push('/events');
+            this.props.history.push('/');
         }
     }
     

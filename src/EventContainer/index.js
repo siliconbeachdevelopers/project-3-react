@@ -136,6 +136,7 @@ class EventContainer extends Component {
               {e.tickets}
               </Grid.Column>
             </Grid.Row>
+            
             </div>
            )
          }

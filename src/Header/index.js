@@ -7,9 +7,9 @@ const NavHeader = props => {
         <Header>
             <List>
              <List.Item>
-                <NavLink to='/'>Home</NavLink>
-                <NavLink to='/events/new'>Events</NavLink>
-                <NavLink to='/register'>Register</NavLink>
+                <NavLink to='/'> Home </NavLink>
+                <NavLink to='/events/new'> Create Event </NavLink>
+                <NavLink to='/register'> Register </NavLink>
                 {
                     props.currentUser 
                     ? <div>Hello {props.currentUser.username}</div>
