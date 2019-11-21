@@ -24,7 +24,7 @@ class App extends Component {
   getEvents = async () => {
 
     try {
-      const events = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/');
+      const events = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`);
       const parsedEvents = await events.json();
       console.log(parsedEvents);
       this.setState({
@@ -45,7 +45,7 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <Switch>
-          <Route exact path="/" component={EventContainer} />
+          <Route exact path="/" component={ EventContainer } />
           <Route exact path="/form" render={() => <CreateEventForm addEvent={this.addEvent} />} />
         </Switch>
       </div>

@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Image, Form, Label, Segment, Button } from 'semantic-ui-react';
 
 class CreateEventForm extends Component {
-  constructor(){
-    super();
-
-    this.state = {
+  state = {
       sport:'',
       teams:'',
       date:'',
@@ -14,8 +11,7 @@ class CreateEventForm extends Component {
       tickets:'',
       image:''
     }
-  }
-
+  
   handleChange = (e) => {
     // es6 computed properties [e.currentTarget.name]
     this.setState({[e.currentTarget.name]: e.currentTarget.value})
@@ -54,5 +50,4 @@ class CreateEventForm extends Component {
       )
   }
 }
-
 export default CreateEventForm

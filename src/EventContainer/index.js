@@ -42,10 +42,8 @@ class EventContainer extends Component {
 
   addEvent = async (e, eventFromTheForm) => {
     e.preventDefault();
-    console.log(eventFromTheForm, '<---eventform')
-  
     try {
-      const createdEventResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/', { // this is a request from our Flask app
+      const createdEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`, { // this is a request from our Flask app
           method: 'POST',
           body: JSON.stringify(eventFromTheForm), // stringify the object (which is in JS) to JSON adn we want to send over which is dog from the form
           headers: {
@@ -76,10 +74,9 @@ class EventContainer extends Component {
                   <span id='datetime'> {e.datetime_local } </span>
                 </Grid.Column>
                 <Grid.Column  width={10}>
-                <span id='headtitle'> {e.title} </span>
-                <span id='venuename'> {e.venue.name} </span>
-                <span id='city'> {e.venue.city} </span>
-                
+                  <span id='headtitle'> {e.title} </span>
+                  <span id='venuename'> {e.venue.name} </span>
+                  <span id='city'> {e.venue.city} </span>
                 </Grid.Column>                
                 <Grid.Column width={3}>
                   <Image src={e.performers[0].image} />
