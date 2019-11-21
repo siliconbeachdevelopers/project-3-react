@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Image, } from 'semantic-ui-react';
+import EventList from '../EventList';
+import EditEventModal from '../EditEventModal'
+import { Grid, Image } from 'semantic-ui-react'
 import './EventContainer.css'
 
 class EventContainer extends Component {
@@ -8,67 +10,105 @@ class EventContainer extends Component {
 
     this.state = {
       events: [],
-      sport: '',
-      teams: '',
-      date: '',
-      time: '',
-      location: '',
-      tickets: ''
+      eventToEdit: {
+        sport: '',
+        teams: '',
+        date: '',
+        time: '',
+        location: '',
+        tickets: '',
+        id: ''
+    },
+      showEditModal: false 
     }
   }
-
+  
   componentDidMount(){
     this.getEvents();
   }
   getEvents = async () => {
 
     try {
-      const events = await fetch('https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=MTk1NTE3OTF8MTU3NDIzMTU5Ni4wMw');
+
+      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
-      console.log(parsedEvents);
       parsedEvents.events.map(event => {
         const prettyDate = new Date(event.datetime_local)
         event.datetime_local = prettyDate.toDateString()
       })
       this.setState({
-       events: parsedEvents.events
+        events: parsedEvents.events 
+
+      
+  
       })
     } catch(err){
       console.log(err);
     }
   }
-  
-  // POST REQUEST (connecting with FLASK)
+      
+// DELETE ROUTE
 
-  addEvent = async (e, eventFromTheForm) => {
-    e.preventDefault();
-    console.log(eventFromTheForm, '<---eventform')
-  
-    try {
-      const createdEventResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/', { // this is a request from our Flask app
-          method: 'POST',
-          body: JSON.stringify(eventFromTheForm), // stringify the object (which is in JS) to JSON adn we want to send over which is dog from the form
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      })
-      // turing the response from Flask into an object we can use
-      const parsedResponse = await createdEventResponse.json();
-      console.log(parsedResponse, ' hi im a response')
+    deleteEvent = async (id) => {
+        console.log(id)
+        const deleteEventResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/' + id, {method:'DELETE'}); 
 
-      this.setState({events: [...this.state.events, parsedResponse.data]}) // ... is like payload in Flask and we're using our new array (events), empties it, and adds in the object we add in the response into our data property. .data
-  } catch(err){
-      console.log('error')
-      console.log(err)
-  }
+        const deleteEventParsed = await deleteEventResponse.json();
+        console.log(deleteEventParsed)
+        this.setState({events: this.state.events.filter((event) => event.id !== id)})
+    }
+
+// EDIT ROUTE
+
+    openAndEdit = eventFromTheList => {
+        this.setState({
+            showEditModal: true,
+            eventToEdit: {
+                ...eventFromTheList 
+            }
+        })
+    }
+
+    handleEditChange = e => 
+        this.setState({
+            eventToEdit: {
+                ...this.state.eventToEdit,
+                [e.currentTarget.name] : e.currentTarget.value 
+            }
+        })
+
+    closeAndEdit = async e => {
+        e.preventDefault()
+        console.log('working')
+        try {
+            const editResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${this.state.eventToEdit.id}`, {
+                method: "PUT",
+                body: JSON.stringify(this.state.eventToEdit),
+                headers: {
+                    'Content-Type': 'application/json'
+            }
+        })
+        const editResponseParsed = await editResponse.json()
+        const newEventArrayWithEdit = this.state.events.map(event => {
+            if(event.id === editResponseParsed.data.id) {
+                event = editResponseParsed.data
+            }
+            return event
+        })
+        this.setState({
+            showEditModal: false,
+            events: newEventArrayWithEdit
+        })
+    } catch (err) {
+        console.log(err)
+    }
 }
-  
-  
-  render() {
+
+  render(){
     return (
-     <Grid >
+    <div>
+      <Grid>
           {
-           
            this.state.events.map(e => 
               <Grid.Row className='border'>
                 <Grid.Column width={3}>
@@ -88,10 +128,47 @@ class EventContainer extends Component {
             )
           }
       </Grid>
-      )
-  
-    }
-  
+          {
+          this.props.eventsCreated.map((e, i) =>
+            <div>
+            <Grid.Row>
+              <Grid.Column width={3}>
+              <Image src={e.image} />
+              </Grid.Column>
+              <Grid.Column width={10}>
+              {e.sport}
+              </Grid.Column>
+              <Grid.Column width={3}>
+              {e.teams}
+              <Grid.Column>
+              {e.date}
+              </Grid.Column>
+              {e.time}
+              </Grid.Column>
+              {e.location}
+              <Grid.Column>
+              {e.tickets}
+              </Grid.Column>
+            </Grid.Row>
+            
+            </div>
+           )
+         }
+
+      <EventList 
+      events={this.state.events} 
+      deleteEvent={this.deleteEvent}
+      openAndEdit={this.openAndEdit}
+      /> 
+      <EditEventModal 
+      eventToEdit={this.state.eventToEdit}
+      showEditModal={this.state.showEditModal}
+      handleEditChange={this.handleEditChange}
+      closeAndEdit={this.closeAndEdit}
+      />
+    </div>
+    )
+  }
 }
 
-export default EventContainer;
+export default EventContainer
