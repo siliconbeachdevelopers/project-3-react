@@ -51,7 +51,7 @@ class EventContainer extends Component {
 
     deleteEvent = async (id) => {
         console.log(id)
-        const deleteEventResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/' + id, {method:'DELETE'}); 
+        const deleteEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${id}`, {method:'DELETE'}); 
 
         const deleteEventParsed = await deleteEventResponse.json();
         console.log(deleteEventParsed)
