@@ -6,6 +6,7 @@ function NavBar() {
     return (
         <div class='navbar'>
             <br></br>
+            <Image src=''></Image>
             <NavLink class='homelink' exact to="/" >Home</NavLink>
             <br></br>
             <NavLink exact to="/form" >Form</NavLink>
