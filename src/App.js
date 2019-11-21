@@ -6,6 +6,8 @@ import Register from './Register';
 import Header from './Header';
 import EventShow from './EventShow';
 import CreateEvent from './CreateEventForm';
+import NavBar from './NavBar'
+
 
 console.log(EventContainer)
 

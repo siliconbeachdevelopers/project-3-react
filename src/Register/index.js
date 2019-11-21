@@ -13,7 +13,7 @@ class Register extends Component {
         email: ''
       }
       
-    handleChange = (e) => { 
+    handleChange = (e) => { // allows us to see the state change in components 
         this.setState({
           [e.currentTarget.name]: e.currentTarget.value
         })
@@ -33,7 +33,7 @@ class Register extends Component {
 
         if(parsedResponse.status.message === 'Success'){
             this.props.doUpdateCurrentUser(parsedResponse.data) 
-            this.props.history.push('/events');
+            this.props.history.push('/');
         }
     }
     

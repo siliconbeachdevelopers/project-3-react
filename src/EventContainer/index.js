@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
 import { Grid, Image } from 'semantic-ui-react'
+import './EventContainer.css'
 
 class EventContainer extends Component {
   constructor(props){
@@ -28,10 +29,18 @@ class EventContainer extends Component {
   getEvents = async () => {
 
     try {
+
       const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
+      parsedEvents.events.map(event => {
+        const prettyDate = new Date(event.datetime_local)
+        event.datetime_local = prettyDate.toDateString()
+      })
       this.setState({
         events: parsedEvents.events 
+
+      
+  
       })
     } catch(err){
       console.log(err);
@@ -99,21 +108,26 @@ class EventContainer extends Component {
     return (
     <div>
       <Grid>
-         {
-          this.state.events.map((e, i) =>
-             <Grid.Row key={i}>
-               <Grid.Column width={3}>
-                 <Image src={e.strSportThumb} />
-               </Grid.Column>
-               <Grid.Column width={10}>
-                 {e.title}
-               </Grid.Column>
-               <Grid.Column width={3}>
-                 <Image src={e.performers[0].image} />
-               </Grid.Column>
-             </Grid.Row>
-           )
+          {
+           this.state.events.map(e => 
+              <Grid.Row className='border'>
+                <Grid.Column width={3}>
+                  <Image src={e.strSportThumb} />
+                  <span id='datetime'> {e.datetime_local } </span>
+                </Grid.Column>
+                <Grid.Column  width={10}>
+                <span id='headtitle'> {e.title} </span>
+                <span id='venuename'> {e.venue.name} </span>
+                <span id='city'> {e.venue.city} </span>
+                
+                </Grid.Column>                
+                <Grid.Column width={3}>
+                  <Image src={e.performers[0].image} />
+                </Grid.Column>
+              </Grid.Row>
+            )
           }
+      </Grid>
           {
           this.props.eventsCreated.map((e, i) =>
             <div>
@@ -139,7 +153,6 @@ class EventContainer extends Component {
             </div>
            )
          }
-     </Grid>
 
       <EventList 
       events={this.state.events} 
