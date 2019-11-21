@@ -32,10 +32,8 @@ class Register extends Component {
     const parsedResponse = await registerResponse.json();
 
         if(parsedResponse.status.message === 'Success'){
-            // change our component
-            // this automatically get passed to your component as a prop
-            this.props.doUpdateCurrentUser(parsedResponse.data) // data is coming from my games.py file. It's what I named my jsonify info
-            this.props.history.push('/events');
+            this.props.doUpdateCurrentUser(parsedResponse.data) 
+            this.props.history.push('/');
         }
     }
     
