@@ -13,7 +13,7 @@ class Register extends Component {
         email: ''
       }
       
-    handleChange = (e) => { 
+    handleChange = (e) => { // allows us to see the state change in components 
         this.setState({
           [e.currentTarget.name]: e.currentTarget.value
         })
