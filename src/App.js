@@ -3,13 +3,12 @@ import './App.css';
 import EventContainer from './EventContainer';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Register from './Register';
+import Login from './Login';
 import Header from './Header';
 import EventShow from './EventShow';
 import CreateEvent from './CreateEventForm';
 import NavBar from './NavBar'
 
-
-console.log(EventContainer)
 
 const My404 = () => {
   return (
@@ -31,8 +30,8 @@ class App extends Component {
     tickets: '',
     id: ''
   }
-
-  doUpdateCurrentUser = (user) => { 
+  doUpdateCurrentUser = (user) => {
+    console.log(user)
     this.setState({
       currentUser : user
     })
@@ -46,7 +45,6 @@ class App extends Component {
     try {
       const events = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`);
       const parsedEvents = await events.json();
-      console.log(parsedEvents);
       this.setState({
         eventsCreated: parsedEvents.data
       })
@@ -88,6 +86,7 @@ class App extends Component {
         <Route exact path='/' render={() => <EventContainer eventsCreated={this.state.eventsCreated}/>} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
+        <Route exact path='/login' render={() => <Login doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
         <Route exact path='/events/:id' component={EventShow} />
         <Route component={My404} />
       </Switch>

@@ -42,10 +42,10 @@ class Register extends Component {
             <Form onSubmit={this.handleSubmit}>
             <Label> Username</Label>
             <Form.Input type='text' name="username" onChange={this.handleChange} />
-            <Label> Password</Label>
-            <Form.Input type='password' name="password" onChange={this.handleChange} />
             <Label> Email</Label>
             <Form.Input type='text' name="email" onChange={this.handleChange} />
+            <Label> Password</Label>
+            <Form.Input type='password' name="password" onChange={this.handleChange} />
             <Button type="Submit" color="green">Register</Button>
           </Form>
         )
