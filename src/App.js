@@ -1,55 +1,98 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import './App.css';
-import EventContainer from './EventContainer'
+import EventContainer from './EventContainer';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import Register from './Register';
+import Header from './Header';
+import EventShow from './EventShow';
+import CreateEvent from './CreateEventForm';
 import NavBar from './NavBar'
-import CreateEventForm from './CreateEventForm';
+
+
+console.log(EventContainer)
+
+const My404 = () => {
+  return (
+    <div>
+      You are lost lil buddy : /
+    </div>
+    )
+};
 
 class App extends Component {
-
   state = {
-    events: [],
+    currentUser: {},
+    eventsCreated: [],
     sport: '',
     teams: '',
     date: '',
     time: '',
     location: '',
-    tickets: ''
+    tickets: '',
+    id: ''
+  }
+
+  doUpdateCurrentUser = (user) => { 
+    this.setState({
+      currentUser : user
+    })
   }
 
   componentDidMount(){
     this.getEvents();
   }
-  getEvents = async () => {
 
+  getEvents = async () => {
     try {
-      const events = await fetch(process.env.REACT_APP_API_URL + '/api/v1/events/');
+      const events = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`);
       const parsedEvents = await events.json();
       console.log(parsedEvents);
       this.setState({
-      Events: parsedEvents.data
+        eventsCreated: parsedEvents.data
       })
     } catch(err){
       console.log(err);
     }
   }
 
-  // addEvent = async (e, eventFromTheForm) => {
-  //   e.preventDefault();
-  //   console.log(eventFromTheForm)
-  // }
+  addEvent = async (e, eventFromForm) => {
+    e.preventDefault();
+    console.log(eventFromForm)
+
+    try {
+      const createdEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`, { 
+          method: 'POST',
+          body: JSON.stringify(eventFromForm),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+     
+      const parsedResponse = await createdEventResponse.json();
+      console.log(parsedResponse, ' im a response')
+
+      this.setState({events: [...this.state.eventsCreated, parsedResponse.data]})
+      this.props.history.push('/')
+
+  } catch(err){
+      console.log('error')
+      console.log(err)
+  }
+}
 
   render() {
-    return (
-      <div className="App">
-        <NavBar />
-        <Switch>
-          <Route exact path="/" component={EventContainer} />
-          <Route exact path="/form" render={() => <CreateEventForm addEvent={this.addEvent} />} />
-        </Switch>
-      </div>
-    );
-
+  return ( 
+    <main> 
+      <Header currentUser = {this.state.currentUser} />
+      <Switch> 
+        <Route exact path='/' render={() => <EventContainer eventsCreated={this.state.eventsCreated}/>} />
+        <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
+        <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
+        <Route exact path='/events/:id' component={EventShow} />
+        <Route component={My404} />
+      </Switch>
+    </main>
+    )
   }
 }
 
