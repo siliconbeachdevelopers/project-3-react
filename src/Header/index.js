@@ -12,6 +12,7 @@ const NavHeader = props => {
                 <NavLink to='/register'> Register </NavLink>
                 <NavLink to='/login'> Login</NavLink>
                 <NavLink to='/events'> My Events </NavLink>
+                <NavLink to='/logout'> Logout </NavLink>
 
                 {
                     props.currentUser 

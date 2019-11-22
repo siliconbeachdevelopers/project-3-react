@@ -43,8 +43,7 @@ class App extends Component {
   }
   login = async(e, loginFromForm) => {
     e.preventDefault();
-    console.log(loginFromForm, '<---Loginfromtheform')
-    try{
+    try {
       const loginResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
         method: "POST",
         credentials: 'include',
@@ -61,7 +60,6 @@ class App extends Component {
               this.doUpdateCurrentUser(parsedResponse.data)
               this.props.history.push('/');
     }
-    console.log(parsedResponse.data, '<---data')
     } catch(err){
       console.log(err)
     }
@@ -80,7 +78,7 @@ class App extends Component {
         this.setState({
           logged: false
         })
-        this.props.doUpdateCurrentUser(parsedResponse.data)
+        this.doUpdateCurrentUser(parsedResponse.data)
         this.props.history.push('/')
       }
   }
@@ -98,7 +96,6 @@ class App extends Component {
 
   addEvent = async (e, eventFromForm) => {
     e.preventDefault();
-    console.log(eventFromForm, '<---Eventfromtheform')
     try {
       const createdEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`, { 
           method: 'POST',
@@ -108,7 +105,6 @@ class App extends Component {
           }
       })
       const parsedResponse = await createdEventResponse.json();
-      console.log(parsedResponse, ' im a response')
       this.setState({eventsCreated: [...this.state.eventsCreated, parsedResponse.data]})
       this.props.history.push('/')
   } catch(err){
@@ -117,7 +113,6 @@ class App extends Component {
 }
 
 deleteEvent = async (id) => {
-  console.log(id)
   const deleteEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${id}`, {
     method:'DELETE',
     credentials: 'include'
@@ -128,7 +123,6 @@ deleteEvent = async (id) => {
 }
 
 closeAndEdit = async e => {
-  console.log(e, 'this is close and edit')
   try {
       const editResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${e.id}`, {
           method: "PUT",

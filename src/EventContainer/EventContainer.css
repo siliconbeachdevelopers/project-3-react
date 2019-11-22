@@ -1,3 +1,8 @@
+.uigrid {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
 #headtitle{
  font-size: 35px;
  font-weight: 900;
@@ -58,11 +63,11 @@ color:grey;
 }
 
 #imagecover{
-    display:flex;
-    flex-flow: inherit;
-    max-width:175%;
-    margin-top:100px;
-    border-width: 5px solid black;
+    flex-direction: column;
+    left: -55px;
+    max-width: 130%;
+    margin-top:75px;
+    margin-right: 100px;
 }
 
 
