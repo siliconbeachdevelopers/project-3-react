@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid, Image, Button } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 import './EventContainer.css'
 
 class EventContainer extends Component {
@@ -11,12 +12,12 @@ class EventContainer extends Component {
     this.state = {
       events: [],
       eventToEdit: {
-        sport: '',
-        teams: '',
-        date: '',
-        time: '',
-        location: '',
-        tickets: '',
+        title: '',
+        venueName: '',
+        city: '',
+        // time: '',
+        // location: '',
+        // tickets: '',
         id: ''
     },
       showEditModal: false 
@@ -38,8 +39,6 @@ class EventContainer extends Component {
       })
       this.setState({
         events: parsedEvents.events 
-
-      
   
       })
     } catch(err){
@@ -51,10 +50,13 @@ class EventContainer extends Component {
 
     deleteEvent = async (id) => {
         console.log(id)
-        const deleteEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${id}`, {method:'DELETE'}); 
+
+        const deleteEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${id}`, {
+          method:'DELETE',
+          credentials: 'include'
+        }); 
 
         const deleteEventParsed = await deleteEventResponse.json();
-        console.log(deleteEventParsed)
         this.setState({events: this.state.events.filter((event) => event.id !== id)})
     }
 
@@ -64,7 +66,8 @@ class EventContainer extends Component {
         this.setState({
             showEditModal: true,
             eventToEdit: {
-                ...eventFromTheList 
+                ...eventFromTheList,
+                id: eventFromTheList
             }
         })
     }
@@ -80,31 +83,14 @@ class EventContainer extends Component {
     closeAndEdit = async e => {
         e.preventDefault()
         console.log('working')
-        try {
-            const editResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${this.state.eventToEdit.id}`, {
-                method: "PUT",
-                body: JSON.stringify(this.state.eventToEdit),
-                headers: {
-                    'Content-Type': 'application/json'
-            }
-        })
-        const editResponseParsed = await editResponse.json()
-        const newEventArrayWithEdit = this.state.events.map(event => {
-            if(event.id === editResponseParsed.data.id) {
-                event = editResponseParsed.data
-            }
-            return event
-        })
+        this.props.editEvent(this.state.eventToEdit)
         this.setState({
-            showEditModal: false,
-            events: newEventArrayWithEdit
+          showEditModal: false
         })
-    } catch (err) {
-        console.log(err)
-    }
 }
 
   render(){
+    console.log(this.props.editEvent, 'this is edit')
     return (
     <div>
       <Grid>
@@ -113,12 +99,17 @@ class EventContainer extends Component {
               <Grid.Row className='border'>
                 <Grid.Column width={3}>
                   <Image src={e.strSportThumb} />
+                <Grid.Column width={9}>
+                  {/* <Button onClick={() => this.deleteEvent(e.id)}>Delete Event</Button> */}
+                </Grid.Column>
                   <span id='datetime'> {e.datetime_local } </span>
                 </Grid.Column>
                 <Grid.Column  width={10}>
-                  <span id='headtitle'> {e.title} </span>
-                  <span id='venuename'> {e.venue.name} </span>
-                  <span id='city'> {e.venue.city} </span>
+
+                <span id='headtitle'> {e.title} </span>
+                <span id='venuename'> {e.venue.name} </span>
+                <span id='city'> {e.venue.city} </span>
+     
                 </Grid.Column>                
                 <Grid.Column width={3}>
                   <Image src={e.performers[0].image} />
@@ -126,7 +117,6 @@ class EventContainer extends Component {
               </Grid.Row>
             )
           }
-      </Grid>
           {
           this.props.eventsCreated.map((e, i) =>
             <div>
@@ -134,26 +124,28 @@ class EventContainer extends Component {
               <Grid.Column width={3}>
               <Image src={e.image} />
               </Grid.Column>
+              <Button onClick={() => this.props.deleteEvent(e.id)}>Delete Event</Button>
+              <Button onClick={() => this.openAndEdit(e.id)}>Edit Event</Button>
               <Grid.Column width={10}>
-              {e.sport}
+              <span id='headtitle'> {e.title} </span>
               </Grid.Column>
               <Grid.Column width={3}>
-              {e.teams}
+              <span id='venuename'> {e.venueName} </span>
               <Grid.Column>
-              {e.date}
+              <span id='city'> {e.city} </span>
               </Grid.Column>
-              {e.time}
               </Grid.Column>
-              {e.location}
-              <Grid.Column>
+              {/* {e.time}
+              </Grid.Column>
+              {e.location} */}
+              {/* <Grid.Column>
               {e.tickets}
-              </Grid.Column>
+              </Grid.Column> */}
             </Grid.Row>
-            
             </div>
            )
          }
-
+      </Grid>
       <EventList 
       events={this.state.events} 
       deleteEvent={this.deleteEvent}
@@ -170,4 +162,4 @@ class EventContainer extends Component {
   }
 }
 
-export default EventContainer
+export default withRouter(EventContainer)
