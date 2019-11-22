@@ -9,18 +9,18 @@ const EditEventModal = (props) => {
       <Modal.Content>
         <Form onSubmit={props.closeAndEdit}>
           <Label>
-            Sport:
+            What's The Event?:
           </Label>
-          <Form.Input type='text' name='sport' value={props.eventToEdit.sport} onChange={props.handleEditChange}/>
+          <Form.Input type='text' name='title' value={props.eventToEdit.title} onChange={props.handleEditChange}/>
           <Label>
-            Teams:
+            Venue Name:
           </Label>
-          <Form.Input type='text' name='teams' value={props.eventToEdit.genre} onChange={props.handleEditChange}/>
+          <Form.Input type='text' name='venueName' value={props.eventToEdit.venueName} onChange={props.handleEditChange}/>
           <Label>
-            Date:
+            City:
           </Label>
-          <Form.Input type='text' name='date' value={props.eventToEdit.platform} onChange={props.handleEditChange}/>
-          <Label>
+          <Form.Input type='text' name='city' value={props.eventToEdit.city} onChange={props.handleEditChange}/>
+          {/* <Label>
             Time:
           </Label>
           <Form.Input type='text' name='time' value={props.eventToEdit.platform} onChange={props.handleEditChange}/>
@@ -31,7 +31,7 @@ const EditEventModal = (props) => {
           <Label>
             Tickets:
           </Label>
-          <Form.Input type='text' name='tickets' value={props.eventToEdit.platform} onChange={props.handleEditChange}/>
+          <Form.Input type='text' name='tickets' value={props.eventToEdit.platform} onChange={props.handleEditChange}/> */}
           <Modal.Actions>
             <Button color='green' type='submit'>Edit Event</Button>
           </Modal.Actions>

@@ -87,17 +87,54 @@ class App extends Component {
               'Content-Type': 'application/json'
           }
       })
-     
+    
       const parsedResponse = await createdEventResponse.json();
       console.log(parsedResponse, ' im a response')
 
-      this.setState({events: [...this.state.eventsCreated, parsedResponse.data]})
+      this.setState({eventsCreated: [...this.state.eventsCreated, parsedResponse.data]})
       this.props.history.push('/')
 
   } catch(err){
       console.log('error')
       console.log(err)
   }
+}
+
+deleteEvent = async (id) => {
+  console.log(id)
+  const deleteEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${id}`, {
+    method:'DELETE',
+    credentials: 'include'
+  }); 
+
+  const deleteEventParsed = await deleteEventResponse.json();
+  this.setState({eventsCreated: this.state.eventsCreated.filter((event) => event.id !== id)})
+}
+
+closeAndEdit = async e => {
+  console.log(e, 'this is close and edit')
+  try {
+      const editResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${e.id}`, {
+          method: "PUT",
+          body: JSON.stringify(e),
+          headers: {
+              'Content-Type': 'application/json'
+      }
+    })
+  const editResponseParsed = await editResponse.json()
+  const newEventArrayWithEdit = this.state.eventsCreated.map(event => {
+      if(event.id === editResponseParsed.data.id) {
+          event = editResponseParsed.data
+      }
+      return event
+  })
+  this.setState({
+      eventsCreated: newEventArrayWithEdit,
+      
+  })
+} catch (err) {
+  console.log(err)
+}
 }
 
   render() {
