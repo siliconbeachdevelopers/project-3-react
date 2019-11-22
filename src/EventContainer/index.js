@@ -117,7 +117,7 @@ class EventContainer extends Component {
                   
                   <Image src={e.strSportThumb} />
                   
-                  <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" />
+                  <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" eventid={e.id}/>
                  
                 </Grid.Column>
                 
