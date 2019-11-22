@@ -12,7 +12,6 @@ class CreateEvent extends Component {
       // tickets:'',
       // image:''
     }
-
   handleChange = (e) => {
       this.setState({[e.currentTarget.name]: e.currentTarget.value})
   }

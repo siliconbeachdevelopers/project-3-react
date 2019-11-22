@@ -50,6 +50,7 @@ class EventContainer extends Component {
 
     deleteEvent = async (id) => {
         console.log(id)
+
         const deleteEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${id}`, {
           method:'DELETE',
           credentials: 'include'
@@ -104,9 +105,11 @@ class EventContainer extends Component {
                   <span id='datetime'> {e.datetime_local } </span>
                 </Grid.Column>
                 <Grid.Column  width={10}>
+
                 <span id='headtitle'> {e.title} </span>
                 <span id='venuename'> {e.venue.name} </span>
                 <span id='city'> {e.venue.city} </span>
+     
                 </Grid.Column>                
                 <Grid.Column width={3}>
                   <Image src={e.performers[0].image} />
