@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
 import Moment from 'react-moment';
-
 import { Grid, Image, Button, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
-
 import './EventContainer.css'
 
 function toStandardTime(militaryTime) {
   militaryTime = militaryTime.split(':');
   return (militaryTime[0].charAt(0) == 1 && militaryTime[0].charAt(1) > 2) ? (militaryTime[0] - 12) + ':' + militaryTime[1] + ':' + militaryTime[2] + ' P.M.' : militaryTime.join(':') + ' A.M.'
 }
-
-
 class EventContainer extends Component {
   constructor(props){
     super(props);
@@ -36,8 +32,22 @@ class EventContainer extends Component {
   componentDidMount(){
     this.getEvents();
   }
-  getEvents = async () => {
 
+
+  showEachEvent = async () => {
+    try {
+      const eachEvent = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
+      const parsedEachEvent = await eachEvent.json();
+      console.log(parsedEachEvent)
+        this.setState({
+        eachEvent: parsedEachEvent.eachEvent
+    })
+  } catch(err){
+    console.log(err);
+  }
+}
+
+  getEvents = async () => {
     try {
       const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
@@ -48,8 +58,7 @@ class EventContainer extends Component {
         event.datetime_local = prettyDate.toDateString()
       })
       this.setState({
-        events: parsedEvents.events 
-  
+        events: parsedEvents.events
       })
     } catch(err){
       console.log(err);
@@ -108,15 +117,17 @@ class EventContainer extends Component {
           {
            this.state.events.map(e => 
               <Grid.Row className='border'>
-                
-                
+
                 <Grid.Column width={3}>
                   
                   <Image src={e.strSportThumb} />
 
                   
                   <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" eventid={e.id} onClick={(eventlistener, e) => this.props.saveEvent(e.eventid)}/>
-                 
+                <Grid.Column width={9}>
+                  {/* <Button onClick={() => this.deleteEvent(e.id)}>Delete Event</Button> */}
+                </Grid.Column>   
+
                 </Grid.Column>
                 
                 <Grid.Column  width={10}>
@@ -132,10 +143,10 @@ class EventContainer extends Component {
                 </Moment>pm
                 <br></br>
                 <br></br>
-                <span id='lowprice'> LowestPrice $ {e.stats.lowest_price} </span>
+                <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
           
                 <div className="button">
-                <Button className="button1" color="black" size='massive'>Go</Button>
+                <Button onClick={() => this.props.showEachEvent()} className="button1" color="black" size='massive'>Go</Button>
                 </div>
                 
                 <span id='venuename'> {e.venue.name} </span>

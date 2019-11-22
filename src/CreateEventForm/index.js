@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
-import { Form, Button, Label, Segment } from 'semantic-ui-react';
+import { 
+  Form, 
+  Button, 
+  Label, 
+  Segment 
+} from 'semantic-ui-react';
 
 class CreateEvent extends Component {
     state = {
@@ -30,22 +35,8 @@ class CreateEvent extends Component {
         
         <Label>City:</Label>
         <Form.Input type='text' name='city' value={this.state.city} onChange={this.handleChange}/>
-{/* 
-        <Label>Time:</Label>
-        <Form.Input type='text' name='time' value={this.state.time} onChange={this.handleChange}/>
-
-        <Label>Location:</Label>
-        <Form.Input type='text' name='location' value={this.state.location} onChange={this.handleChange}/>
-
-        <Label>Tickets:</Label>
-        <Form.Input type='text' name='tickets' value={this.state.tickets} onChange={this.handleChange}/>
-
-        <Label>image:</Label>
-        <Form.Input type='text' name='image' value={this.state.image} onChange={this.handleChange}/> */}
-        
         <Button type='Submit'>Create Event</Button>
         </Form>
-        
       </Segment>
       )
   }

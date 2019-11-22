@@ -10,9 +10,9 @@ class Register extends Component {
     state = {
         username: '',
         password: '',
-        email: ''
+        email: '',
+        is_admin: false
       }
-      
     handleChange = (e) => { // allows us to see the state change in components 
         this.setState({
           [e.currentTarget.name]: e.currentTarget.value
@@ -41,10 +41,10 @@ class Register extends Component {
             <Form onSubmit={this.handleSubmit}>
             <Label> Username</Label>
             <Form.Input type='text' name="username" onChange={this.handleChange} />
-            <Label> Password</Label>
-            <Form.Input type='password' name="password" onChange={this.handleChange} />
             <Label> Email</Label>
             <Form.Input type='text' name="email" onChange={this.handleChange} />
+            <Label> Password</Label>
+            <Form.Input type='password' name="password" onChange={this.handleChange} />
             <Button type="Submit" color="green">Register</Button>
           </Form>
         )

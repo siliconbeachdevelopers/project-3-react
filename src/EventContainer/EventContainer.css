@@ -3,6 +3,7 @@
     margin-right:100px;
     margin-left:100px;
 }
+
 #headtitle{
  font-size: 35px;
  font-weight: 900;
@@ -14,9 +15,8 @@
 font-weight:bold;
 font-size: 24px;
 color:grey;
-
-
 }
+
 #venuename{
 font-weight:bold;
 display:block;
@@ -24,8 +24,6 @@ margin-top:148px;
 font-size: 22px;
 color:grey;
 line-height: 27px;;
-
-
 }
 
 .border{
@@ -33,6 +31,7 @@ line-height: 27px;;
 }
 
 #datetime{
+    padding: 2rem;
     font-weight: bolder;
     font-size:24px;
  
@@ -43,17 +42,13 @@ line-height: 27px;;
 
 #Icon{
     margin-top: 375px;
-   
-   
-
 }
+
 .button1    {
     flex-direction: column;
     justify-content:center;
    background-color:black;
     color: white;
-    
-   
     height:70px;
    
    

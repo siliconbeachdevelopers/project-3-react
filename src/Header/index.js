@@ -10,6 +10,7 @@ const NavHeader = props => {
                 <NavLink to='/'> Home </NavLink>
                 <NavLink to='/events/new'> Create Event </NavLink>
                 <NavLink to='/register'> Register </NavLink>
+                <NavLink to='/login'> Login</NavLink>
                 <NavLink to='/events'> My Events </NavLink>
 
                 {
