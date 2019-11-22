@@ -41,6 +41,9 @@ class App extends Component {
   componentDidMount(){
     this.getEvents();
   }
+  saveEvent = async(id) => {
+    console.log(id)
+  }
   login = async(e, loginFromForm) => {
     e.preventDefault();
     console.log(loginFromForm, '<---Loginfromtheform')
@@ -158,7 +161,7 @@ closeAndEdit = async e => {
     <main> 
       <NavHeader currentUser = {this.state.currentUser} />
       <Switch> 
-        <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} />} />
+        <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} saveEvent={this.saveEvent}/>} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
         <Route exact path='/login' render={() => <Login login = {this.login} />} />

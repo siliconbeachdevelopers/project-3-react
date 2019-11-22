@@ -1,3 +1,9 @@
+
+.uigrid{
+    margin-right:100px;
+    margin-left:100px;
+}
+
 #headtitle{
  font-size: 35px;
  font-weight: 900;
@@ -7,7 +13,7 @@
 
 #city{
 font-weight:bold;
-font-size: 21px;
+font-size: 24px;
 color:grey;
 }
 
@@ -15,8 +21,9 @@ color:grey;
 font-weight:bold;
 display:block;
 margin-top:148px;
-font-size: 16px;
+font-size: 22px;
 color:grey;
+line-height: 27px;;
 }
 
 .border{
@@ -38,15 +45,14 @@ color:grey;
 }
 
 .button1    {
-    display:flex;
-    flex-flow:inherit;
-    background-color:black;
+    flex-direction: column;
+    justify-content:center;
+   background-color:black;
     color: white;
-    align-self: center;
-    width:150px;
-    height:80px;
-    position: relative;
-    top: 100px;
+    height:70px;
+   
+   
+   
 }
 
 #lowprice{
@@ -54,17 +60,27 @@ color:grey;
     top:15px;
     font-weight:bold;
     color:red;
-    font-size:22px;
+    font-size:26px;
 }
 
 #imagecover{
-    display:flex;
-    flex-flow: inherit;
-    max-width:175%;
-    margin-top:100px;
-    border-width: 5px solid black;
-}
+    flex-direction:column;
+    left:-55px;
+    max-width:130%;
+    margin-top:75px;
+    margin-right:100px;
 
+    
+}
+.button{
+    flex-direction: column;
+    margin-top: 80px;
+   
+}
+.time{
+    font-weight: bolder;
+    font-size:24px; 
+}
 
 
 
