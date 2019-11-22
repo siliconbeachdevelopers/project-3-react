@@ -10,9 +10,9 @@ class Register extends Component {
     state = {
         username: '',
         password: '',
-        email: ''
+        email: '',
+        is_admin: false
       }
-      
     handleChange = (e) => { // allows us to see the state change in components 
         this.setState({
           [e.currentTarget.name]: e.currentTarget.value

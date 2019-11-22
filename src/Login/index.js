@@ -10,6 +10,7 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
+        is_admin: false,
     }
 
     handleChange = (e) => {

@@ -37,10 +37,7 @@ class EventContainer extends Component {
         event.datetime_local = prettyDate.toDateString()
       })
       this.setState({
-        events: parsedEvents.events 
-
-      
-  
+        events: parsedEvents.events
       })
     } catch(err){
       console.log(err);
