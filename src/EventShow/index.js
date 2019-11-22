@@ -18,12 +18,12 @@ class EventShow extends Component {
     render() {
         return (
             <div>
-                <h1>{this.state.event.sport}</h1>
-                <h3>{this.state.event.teams}</h3>
-                <h3>{this.state.event.date}</h3>
-                <h3>{this.state.event.time}</h3>
+                <h1>{this.state.event.title}</h1>
+                <h3>{this.state.event.venueName}</h3>
+                <h3>{this.state.event.city}</h3>
+                {/* <h3>{this.state.event.time}</h3>
                 <h3>{this.state.event.location}</h3>
-                <h3>{this.state.event.tickets}</h3>
+                <h3>{this.state.event.tickets}</h3> */}
             </div>
             )
     }
