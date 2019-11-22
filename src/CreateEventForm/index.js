@@ -4,15 +4,14 @@ import { Form, Button, Label, Segment } from 'semantic-ui-react';
 
 class CreateEvent extends Component {
     state = {
-      sport:'',
-      teams:'',
-      date:'',
-      time:'',
-      location:'',
-      tickets:'',
-      image:''
+      title:'',
+      venueName:'',
+      city:'',
+      // time:'',
+      // location:'',
+      // tickets:'',
+      // image:''
     }
-
   handleChange = (e) => {
       this.setState({[e.currentTarget.name]: e.currentTarget.value})
   }
@@ -23,15 +22,15 @@ class CreateEvent extends Component {
         <h4>Create Event</h4>
         <Form onSubmit={(e) => this.props.addEvent(e, this.state)}>
           
-        <Label>Sport:</Label>
-        <Form.Input type='text' name='sport' value={this.state.sport} onChange={this.handleChange}/>
+        <Label>What's The Event?:</Label>
+        <Form.Input type='text' name='title' value={this.state.title} onChange={this.handleChange}/>
         
-        <Label>Teams:</Label>
-        <Form.Input type='text' name='teams' value={this.state.teams} onChange={this.handleChange}/>
+        <Label>Venue:</Label>
+        <Form.Input type='text' name='venueName' value={this.state.venueName} onChange={this.handleChange}/>
         
-        <Label>Date:</Label>
-        <Form.Input type='text' name='date' value={this.state.date} onChange={this.handleChange}/>
-
+        <Label>City:</Label>
+        <Form.Input type='text' name='city' value={this.state.city} onChange={this.handleChange}/>
+{/* 
         <Label>Time:</Label>
         <Form.Input type='text' name='time' value={this.state.time} onChange={this.handleChange}/>
 
@@ -42,7 +41,7 @@ class CreateEvent extends Component {
         <Form.Input type='text' name='tickets' value={this.state.tickets} onChange={this.handleChange}/>
 
         <Label>image:</Label>
-        <Form.Input type='text' name='image' value={this.state.image} onChange={this.handleChange}/>
+        <Form.Input type='text' name='image' value={this.state.image} onChange={this.handleChange}/> */}
         
         <Button type='Submit'>Create Event</Button>
         </Form>
