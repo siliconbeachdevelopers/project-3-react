@@ -24,7 +24,6 @@ class Login extends Component {
         <Segment>
             <h2>Login</h2>
             <Form onSubmit={(e) => this.props.login(e, this.state)}>
-
             <Label> Username</Label>
             <Form.Input type='text' name="username" value={this.state.username} onChange={this.handleChange} />
 

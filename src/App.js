@@ -40,6 +40,13 @@ class App extends Component {
   }
   componentDidMount(){
     this.getEvents();
+    const user = localStorage.getItem('user')
+    if(user){
+      const currentUser = JSON.parse(user)
+      this.setState({
+        currentUser
+      })
+    }
   }
   saveEvent = async(id) => {
     console.log(id)
@@ -58,8 +65,10 @@ class App extends Component {
       const parsedResponse = await loginResponse.json();
           if(parsedResponse.status.code === 200){
               this.setState({
+                session: parsedResponse.session.username,
                 logged: true
               })
+              localStorage.setItem('user', JSON.stringify(parsedResponse.session))
               this.doUpdateCurrentUser(parsedResponse.data)
               this.props.history.push('/');
     }
@@ -67,24 +76,24 @@ class App extends Component {
       console.log(err)
     }
   }
- logout = async () => {
-    const logoutResponse = fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
-      method: "POST",
-      credentials: 'include',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const parsedResponse = await logoutResponse.json();
-      if(parsedResponse.status.code === 200){
-        this.setState({
-          logged: false
-        })
-        this.doUpdateCurrentUser(parsedResponse.data)
-        this.props.history.push('/')
-      }
-  }
+//  logout = async () => {
+//     const logoutResponse = fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
+//       method: "POST",
+//       credentials: 'include',
+//       body: JSON.stringify(this.state),
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     })
+//     const parsedResponse = await logoutResponse.json();
+//       if(parsedResponse.status.code === 200){
+//         this.setState({
+//           logged: false
+//         })
+//         this.doUpdateCurrentUser(parsedResponse.data)
+//         this.props.history.push('/')
+//       }
+//   }
   getEvents = async () => {
     try {
       const events = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`);

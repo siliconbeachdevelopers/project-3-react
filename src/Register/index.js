@@ -29,7 +29,9 @@ class Register extends Component {
               'Content-Type' : 'application/json'
           }
       })
+      console.log('<_____---------------------------')
       const parsedResponse = await registerResponse.json();
+      console.log(parsedResponse, '<-_-__---------------------------------')
       if(parsedResponse.status.message === 'Success'){
           this.props.doUpdateCurrentUser(parsedResponse.data) 
           this.props.history.push('/');
