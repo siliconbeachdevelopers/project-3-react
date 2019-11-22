@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { 
     Form, 
     Label, 
-    Button 
+    Button,
+    Segment
 } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     state = {
@@ -18,34 +19,20 @@ class Login extends Component {
             [e.currentTarget.name]: e.currentTarget.value
         })
     }
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        const loginResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
-            method: "POST",
-            credentials: 'include',
-            body: JSON.stringify(this.state),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }) 
-    const parsedResponse = await loginResponse.json();
-        if(parsedResponse.status.code === 200){
-            this.setState({
-                logged: true
-            })
-            this.props.doUpdateCurrentUser(parsedResponse.data)
-            this.props.history.push('/');
-        }
-    }
     render(){
         return(
-        <Form onSubmit={this.handleSubmit}>
+        <Segment>
+            <h2>Login</h2>
+            <Form onSubmit={(e) => this.props.login(e, this.state)}>
+
             <Label> Username</Label>
-            <Form.Input type='text' name="username" onChange={this.handleChange} />
+            <Form.Input type='text' name="username" value={this.state.username} onChange={this.handleChange} />
+
             <Label> Password</Label>
-            <Form.Input type='password' name="password" onChange={this.handleChange} />
+            <Form.Input type='password' name="password" value={this.state.password} onChange={this.handleChange} />
             <Button type="Submit" color="green">Login</Button>
-          </Form>
+            </Form>
+        </Segment>
         )
     }
 

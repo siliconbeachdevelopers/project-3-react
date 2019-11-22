@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
-import { Form, Button, Label, Segment } from 'semantic-ui-react';
+import { 
+  Form, 
+  Button, 
+  Label, 
+  Segment 
+} from 'semantic-ui-react';
 
 class CreateEvent extends Component {
     state = {

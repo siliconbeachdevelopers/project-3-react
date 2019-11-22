@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import EventContainer from './EventContainer';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Register from './Register';
@@ -22,7 +21,6 @@ const My404 = () => {
 class App extends Component {
   state = {
     currentUser: {},
-    username: '',
     logged: false,
     eventsCreated: [],
     sport: '',
@@ -40,11 +38,35 @@ class App extends Component {
       currentUser : user
     })
   }
-  logout = async () => {
-    this.setState({
-      username: '',
-      logged: true
-    })
+  componentDidMount(){
+    this.getEvents();
+  }
+  login = async(e, loginFromForm) => {
+    e.preventDefault();
+    console.log(loginFromForm, '<---Loginfromtheform')
+    try{
+      const loginResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
+        method: "POST",
+        credentials: 'include',
+        body: JSON.stringify(loginFromForm),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }) 
+      const parsedResponse = await loginResponse.json();
+          if(parsedResponse.status.code === 200){
+              this.setState({
+                logged: true
+              })
+              this.doUpdateCurrentUser(parsedResponse.data)
+              this.props.history.push('/');
+    }
+    console.log(parsedResponse.data, '<---data')
+    } catch(err){
+      console.log(err)
+    }
+  }
+ logout = async () => {
     const logoutResponse = fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
       method: "POST",
       credentials: 'include',
@@ -62,10 +84,6 @@ class App extends Component {
         this.props.history.push('/')
       }
   }
-  componentDidMount(){
-    this.getEvents();
-  }
-
   getEvents = async () => {
     try {
       const events = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`);
@@ -139,12 +157,11 @@ closeAndEdit = async e => {
   return ( 
     <main> 
       <NavHeader currentUser = {this.state.currentUser} />
-      
       <Switch> 
-        <Route exact path='/' render={() => <EventContainer eventsCreated={this.state.eventsCreated}/>} />
+        <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} />} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
-        <Route exact path='/login' render={() => <Login doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
+        <Route exact path='/login' render={() => <Login login = {this.login} />} />
         <Route exact path='/events/:id' component={EventShow} />
         <Route component={My404} />
       </Switch>
