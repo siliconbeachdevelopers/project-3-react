@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
 
-import { Grid, Image, Button } from 'semantic-ui-react'
+import { Grid, Image, Button, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 import './EventContainer.css'
@@ -31,7 +31,6 @@ class EventContainer extends Component {
     this.getEvents();
   }
   getEvents = async () => {
-
     try {
       const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
@@ -110,8 +109,7 @@ class EventContainer extends Component {
                 <Grid.Column width={9}>
                   {/* <Button onClick={() => this.deleteEvent(e.id)}>Delete Event</Button> */}
                 </Grid.Column>
-                  <span id='datetime'> {e.datetime_local } </span>
-
+                 
                 </Grid.Column>
                 
                 <Grid.Column  width={10}>

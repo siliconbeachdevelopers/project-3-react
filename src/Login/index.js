@@ -30,6 +30,9 @@ class Login extends Component {
         }) 
     const parsedResponse = await loginResponse.json();
         if(parsedResponse.status.code === 200){
+            this.setState({
+                logged: true
+            })
             this.props.doUpdateCurrentUser(parsedResponse.data)
             this.props.history.push('/');
         }

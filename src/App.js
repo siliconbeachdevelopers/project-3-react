@@ -8,7 +8,7 @@ import Login from './Login';
 import NavHeader from './Header';
 import EventShow from './EventShow';
 import CreateEvent from './CreateEventForm';
-// import NavBar from './NavBar'
+
 
 
 const My404 = () => {
@@ -43,7 +43,7 @@ class App extends Component {
   logout = async () => {
     this.setState({
       username: '',
-      logged: false
+      logged: true
     })
     const logoutResponse = fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
       method: "POST",
@@ -55,6 +55,9 @@ class App extends Component {
     })
     const parsedResponse = await logoutResponse.json();
       if(parsedResponse.status.code === 200){
+        this.setState({
+          logged: false
+        })
         this.props.doUpdateCurrentUser(parsedResponse.data)
         this.props.history.push('/')
       }
@@ -77,8 +80,7 @@ class App extends Component {
 
   addEvent = async (e, eventFromForm) => {
     e.preventDefault();
-    console.log(eventFromForm)
-
+    console.log(eventFromForm, '<---Eventfromtheform')
     try {
       const createdEventResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`, { 
           method: 'POST',
@@ -87,15 +89,11 @@ class App extends Component {
               'Content-Type': 'application/json'
           }
       })
-    
       const parsedResponse = await createdEventResponse.json();
       console.log(parsedResponse, ' im a response')
-
       this.setState({eventsCreated: [...this.state.eventsCreated, parsedResponse.data]})
       this.props.history.push('/')
-
   } catch(err){
-      console.log('error')
       console.log(err)
   }
 }
@@ -138,18 +136,13 @@ closeAndEdit = async e => {
 }
 
   render() {
-    console.log(this.state.currentUser.is_admin, '<-----is_admin?')
-    console.log(this.state.logged, '<-----logge?')
   return ( 
     <main> 
       <NavHeader currentUser = {this.state.currentUser} />
       
       <Switch> 
         <Route exact path='/' render={() => <EventContainer eventsCreated={this.state.eventsCreated}/>} />
-      
-      {  this.state.currentUser.is_admin || this.state.logged ? '' :
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
-      }
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
         <Route exact path='/login' render={() => <Login doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
         <Route exact path='/events/:id' component={EventShow} />

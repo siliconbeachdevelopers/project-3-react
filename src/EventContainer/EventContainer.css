@@ -1,5 +1,4 @@
 
-
 #headtitle{
  font-size: 35px;
  font-weight: 900;
@@ -30,9 +29,6 @@ color:grey;
 #datetime{
     padding: 2rem;
     font-weight: bolder;
-<<<<<<< HEAD
-}
-=======
     font-size:24px;
  
 }
@@ -42,10 +38,8 @@ color:grey;
 
 #Icon{
     margin-top: 375px;
-   
-   
-
 }
+
 .button1    {
     display:flex;
     flex-flow:inherit;
@@ -78,4 +72,3 @@ color:grey;
 
 
 
->>>>>>> bde4f2843000453fc63e664a607b71221e47dcfc
