@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
+import Moment from 'react-moment';
 import { Grid, Image, Button, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import './EventContainer.css'
 
+function toStandardTime(militaryTime) {
+  militaryTime = militaryTime.split(':');
+  return (militaryTime[0].charAt(0) == 1 && militaryTime[0].charAt(1) > 2) ? (militaryTime[0] - 12) + ':' + militaryTime[1] + ':' + militaryTime[2] + ' P.M.' : militaryTime.join(':') + ' A.M.'
+}
 class EventContainer extends Component {
   constructor(props){
     super(props);
@@ -47,7 +52,9 @@ class EventContainer extends Component {
       const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
       parsedEvents.events.map(event => {
+        console.log(event.datetime_local)
         const prettyDate = new Date(event.datetime_local)
+        event.time = event.datetime_local
         event.datetime_local = prettyDate.toDateString()
       })
       this.setState({
@@ -102,19 +109,25 @@ class EventContainer extends Component {
 }
 
   render(){
-    console.log(this.props.editEvent, 'this is edit')
+    const dateToFormat = '1976-04-19T12:59-0500';
     return (
     <div className='uigrid'>
+
       <Grid >
           {
            this.state.events.map(e => 
               <Grid.Row className='border'>
-                <Grid.Column width={3}>                  
-                  <Image src={e.strSportThumb} />                 
-                  <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" />
+
+                <Grid.Column width={3}>
+                  
+                  <Image src={e.strSportThumb} />
+
+                  
+                  <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" eventid={e.id} onClick={(eventlistener, e) => this.props.saveEvent(e.eventid)}/>
                 <Grid.Column width={9}>
                   {/* <Button onClick={() => this.deleteEvent(e.id)}>Delete Event</Button> */}
                 </Grid.Column>   
+
                 </Grid.Column>
                 
                 <Grid.Column  width={10}>
@@ -122,7 +135,13 @@ class EventContainer extends Component {
                 <div className="centeritems">
                 <span id='headtitle'> {e.title} </span> <br></br>
                 <br></br>
-                <span id='datetime'> {e.datetime_local } </span>
+                <br></br>
+                <span id='datetime'> {e.datetime_local } </span><br></br>
+                
+                <Moment className='time'  format={"hh:mm"}>
+                  {new Date(e.time).toString()}
+                </Moment>pm
+                <br></br>
                 <br></br>
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
           
