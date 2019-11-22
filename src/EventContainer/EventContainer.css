@@ -1,7 +1,10 @@
 
+
 #headtitle{
-    font-size: 24px;
-    font-weight:bold;
+ font-size: 35px;
+ font-weight: 900;
+ border-width: 2px solid grey;
+ line-height: 33px;
 }
 
 #city{
@@ -9,13 +12,15 @@ font-weight:bold;
 font-size: 21px;
 color:grey;
 
+
 }
 #venuename{
 font-weight:bold;
-display: block;
+display:block;
 margin-top:148px;
 font-size: 16px;
 color:grey;
+
 }
 
 .border{
@@ -24,5 +29,48 @@ color:grey;
 
 #datetime{
     font-weight: bolder;
+    font-size:24px;
  
 }
+.centeritems{
+    text-align: center;
+}
+
+#Icon{
+    margin-top: 375px;
+   
+   
+
+}
+.button1    {
+    display:flex;
+    flex-flow:inherit;
+    background-color:black;
+    color: white;
+    align-self: center;
+    width:150px;
+    height:80px;
+    position: relative;
+    top: 100px;
+}
+
+#lowprice{
+    position:relative;
+    top:15px;
+    font-weight:bold;
+    color:red;
+    font-size:22px;
+}
+
+#imagecover{
+    display:flex;
+    flex-flow: inherit;
+    max-width:175%;
+    margin-top:100px;
+    border-width: 5px solid black;
+}
+
+
+
+
+

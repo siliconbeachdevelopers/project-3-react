@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
+
 import { Grid, Image, Button } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
+
 import './EventContainer.css'
+
 
 class EventContainer extends Component {
   constructor(props){
@@ -30,7 +33,6 @@ class EventContainer extends Component {
   getEvents = async () => {
 
     try {
-
       const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
       parsedEvents.events.map(event => {
@@ -92,27 +94,48 @@ class EventContainer extends Component {
   render(){
     console.log(this.props.editEvent, 'this is edit')
     return (
-    <div>
-      <Grid>
+    <div className='uigrid'>
+      <Grid >
           {
            this.state.events.map(e => 
               <Grid.Row className='border'>
+                
+                
                 <Grid.Column width={3}>
+                  
                   <Image src={e.strSportThumb} />
+
+                  
+                  <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" />
+
                 <Grid.Column width={9}>
                   {/* <Button onClick={() => this.deleteEvent(e.id)}>Delete Event</Button> */}
                 </Grid.Column>
                   <span id='datetime'> {e.datetime_local } </span>
+
                 </Grid.Column>
+                
                 <Grid.Column  width={10}>
 
-                <span id='headtitle'> {e.title} </span>
+                <div className="centeritems">
+                <span id='headtitle'> {e.title} </span> <br></br>
+                <br></br>
+                <span id='datetime'> {e.datetime_local } </span>
+                <br></br>
+                <span id='lowprice'> LowestPrice $ {e.stats.lowest_price} </span>
+          
+                <div className="button">
+                <Button className="button1" color="black" size='massive'>Go</Button>
+                </div>
+                
                 <span id='venuename'> {e.venue.name} </span>
-                <span id='city'> {e.venue.city} </span>
-     
+                <span id='city'> {e.venue.display_location} </span>
+                </div>
+
                 </Grid.Column>                
                 <Grid.Column width={3}>
-                  <Image src={e.performers[0].image} />
+                <Image id='imagecover' src={e.performers[0].image} />
+                  
                 </Grid.Column>
               </Grid.Row>
             )
