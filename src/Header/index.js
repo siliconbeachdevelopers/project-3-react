@@ -3,6 +3,10 @@ import { Header, List } from 'semantic-ui-react';
 import { NavLink }from 'react-router-dom';
 
 const NavHeader = props => {
+    const handleClick = () => {
+        props.logout();
+    }
+
     return ( 
         <Header>
             <List>
@@ -12,7 +16,7 @@ const NavHeader = props => {
                 <NavLink to='/register'> Register </NavLink>
                 <NavLink to='/login'> Login</NavLink>
                 <NavLink to='/events'> My Events </NavLink>
-                <NavLink to='/logout'> Logout </NavLink>
+                <NavLink to='/logout' onClick={() => {handleClick()}}> Logout </NavLink>
 
                 {
                     props.currentUser 

@@ -52,6 +52,7 @@ class App extends Component {
     console.log(id)
   }
   login = async(e, loginFromForm) => {
+    console.log(this.state.currentUser)
     e.preventDefault();
     try {
       const loginResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
@@ -76,24 +77,29 @@ class App extends Component {
       console.log(err)
     }
   }
-//  logout = async () => {
-//     const logoutResponse = fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
-//       method: "POST",
-//       credentials: 'include',
-//       body: JSON.stringify(this.state),
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     })
-//     const parsedResponse = await logoutResponse.json();
-//       if(parsedResponse.status.code === 200){
-//         this.setState({
-//           logged: false
-//         })
-//         this.doUpdateCurrentUser(parsedResponse.data)
-//         this.props.history.push('/')
-//       }
-//   }
+ logout = async () => {
+   console.log('im logging out')
+     const user = localStorage.removeItem("user")
+     const logoutResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
+       method: "GET",
+       credentials: "include",
+       headers: {
+         "Content-Type": "application/json"
+       }
+     })
+     const parsedResponse = await logoutResponse.json();
+     console.log(parsedResponse)
+     if (parsedResponse.status.code === 
+      200) {
+        this.setState({
+          currentUser: {
+            user: ''
+          },
+          logged: false
+        })
+        this.props.history.push('/')
+      }
+  }
   getEvents = async () => {
     try {
       const events = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/`);
@@ -162,12 +168,13 @@ closeAndEdit = async e => {
   render() {
   return ( 
     <main> 
-      <NavHeader currentUser = {this.state.currentUser} />
+      <NavHeader currentUser = {this.state.currentUser} logout={this.logout}/>
       <Switch> 
         <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} saveEvent={this.saveEvent}/>} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
         <Route exact path='/login' render={() => <Login login = {this.login} />} />
+        {/* <Route exact path='/logout' logout={this.logout} /> */}
         <Route exact path='/events/:id' component={EventShow} />
         <Route component={My404} />
       </Switch>
