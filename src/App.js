@@ -8,9 +8,6 @@ import EventShow from './EventShow';
 import CreateEvent from './CreateEventForm';
 import NavBar from './NavBar'
 
-
-console.log(EventContainer)
-
 const My404 = () => {
   return (
     <div>
@@ -21,6 +18,7 @@ const My404 = () => {
 
 class App extends Component {
   state = {
+    event: {},
     currentUser: {},
     eventsCreated: [],
     sport: '',
@@ -53,6 +51,27 @@ class App extends Component {
     } catch(err){
       console.log(err);
     }
+  }
+
+  viewEvent = async (id) => {
+    console.log('view event')
+    try {
+      const createdEvents = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${id}`,{
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const parsedCreatedEvents = await createdEvents.json();
+      console.log(parsedCreatedEvents, 'this is view event parsed')
+      this.setState({
+        event: parsedCreatedEvents.data 
+      })
+    } catch(err){
+      console.log(err);
+    }
+    this.props.history.push(`/events/${id}`)
   }
 
   addEvent = async (e, eventFromForm) => {
@@ -122,10 +141,12 @@ closeAndEdit = async e => {
     <main> 
       <Header currentUser = {this.state.currentUser} />
       <Switch> 
-        <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} />} />
+        <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} viewEvent={this.viewEvent} />} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
-        <Route exact path='/events/:id' component={EventShow} />
+        <Route exact path='/events/:id' render={(props) => <EventShow event={this.state.event} {...props} />} />
+    
+
         <Route component={My404} />
       </Switch>
     </main>

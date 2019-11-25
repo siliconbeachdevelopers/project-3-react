@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
 import { Grid, Image, Button, Icon } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link} from 'react-router-dom'
 import './EventContainer.css'
 
 class EventContainer extends Component {
@@ -27,20 +27,6 @@ class EventContainer extends Component {
   componentDidMount(){
     this.getEvents();
   }
-
-
-  showEachEvent = async () => {
-    try {
-      const eachEvent = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
-      const parsedEachEvent = await eachEvent.json();
-      console.log(parsedEachEvent)
-        this.setState({
-        eachEvent: parsedEachEvent.eachEvent
-    })
-  } catch(err){
-    console.log(err);
-  }
-}
 
 
   getEvents = async () => {
@@ -102,10 +88,12 @@ class EventContainer extends Component {
         this.setState({
           showEditModal: false
         })
+
+  
 }
 
   render(){
-    console.log(this.props.editEvent, 'this is edit')
+    console.log(this.props.viewEvent, 'this is edit')
     return (
     <div className='uigrid'>
       <Grid >
@@ -130,7 +118,8 @@ class EventContainer extends Component {
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
           
                 <div className="button">
-                <Button onClick={() => this.props.showEachEvent()} className="button1" color="black" size='massive'>Go</Button>
+                  <Link className="button1" to={`events/${e.id}`}>Go</Link>
+               
                 </div>
                 
                 <span id='venuename'> {e.venue.name} </span>
@@ -161,6 +150,9 @@ class EventContainer extends Component {
               <span id='venuename'> {e.venueName} </span>
               <Grid.Column>
               <span id='city'> {e.city} </span>
+              <div className="button">
+                  <button onClick={() => this.props.viewEvent(e.id)}>View Event</button>
+              </div>
               </Grid.Column>
               </Grid.Column>
               {/* {e.time}
@@ -174,11 +166,11 @@ class EventContainer extends Component {
            )
          }
       </Grid>
-      <EventList 
+      {/* <EventList 
       events={this.state.events} 
       deleteEvent={this.deleteEvent}
       openAndEdit={this.openAndEdit}
-      /> 
+      />  */}
       <EditEventModal 
       eventToEdit={this.state.eventToEdit}
       showEditModal={this.state.showEditModal}
