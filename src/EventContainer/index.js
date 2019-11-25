@@ -126,36 +126,31 @@ class EventContainer extends Component {
                   <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" eventid={e.id} onClick={(eventlistener, e) => this.props.saveEvent(e.eventid)}/>
                 <Grid.Column width={9}>
                   {/* <Button onClick={() => this.deleteEvent(e.id)}>Delete Event</Button> */}
-                </Grid.Column>   
+              </Grid.Column>   
+              </Grid.Column>
+              <Grid.Column  width={10}>
 
-                </Grid.Column>
+              <div className="centeritems">
+                  <span id='headtitle'> {e.short_title} </span> <br></br>
+                   <br></br>
+                   <span id='datetime'> {e.datetime_local } </span><br></br>
                 
-                <Grid.Column  width={10}>
-
-                <div className="centeritems">
-                <span id='headtitle'> {e.short_title} </span> <br></br>
-                <br></br>
-                <span id='datetime'> {e.datetime_local } </span><br></br>
                 <Moment className='time'  format={"hh:mm"}>
-                {new Date(e.time).toString()}
-                </Moment>pm
-                <br></br>
-                <br></br>
+                  {new Date(e.time).toString()}
+                </Moment>pm<br></br><br></br>
+                
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
                 <div className="button">
                 <Button onClick={() => this.props.showEachEvent()} className="button1" color="black" size='big'>Go</Button>
                 </div>
-                
-                <span id='venuename'> {e.venue.name} </span>
+                 <span id='venuename'> {e.venue.name} </span>
                 <span id='city'> {e.venue.display_location} </span>
-                </div>
-
-                </Grid.Column>                
-                <Grid.Column width={3}>
-                <Image id='imagecover' src={e.performers[0].image} />
-                  
-                </Grid.Column>
-              </Grid.Row>
+             </div>
+        </Grid.Column>                
+      <Grid.Column width={3}>
+            <Image id='imagecover' src={e.performers[0].image} />
+        </Grid.Column>
+      </Grid.Row>
             )
           }
           {
