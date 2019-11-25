@@ -21,8 +21,8 @@ const My404 = () => {
 class App extends Component {
   state = {
     currentUser: {},
-    logged: false,
     is_admin: false,
+    logged: false,
     eventsCreated: [],
     sport: '',
     teams: '',
@@ -34,26 +34,29 @@ class App extends Component {
   }
   
   doUpdateCurrentUser = (user) => {
-    console.log(user)
     this.setState({
-      currentUser : user
+      currentUser : user,
     })
+    console.log(user)
   }
 
   componentDidMount(){
     this.getEvents();
     const user = localStorage.getItem('user')
+    
     if(user){
       const currentUser = JSON.parse(user)
       this.setState({
         currentUser
       })
-      if(currentUser.username === 'admin'){
-        this.setState({
-          is_admin: true
-        })
-        console.log(currentUser.username)
+      if(user.length > 1){
+        localStorage.removeItem("user")
       }
+      // if(currentUser.username === 'admin'){
+      //   this.setState({
+      //     is_admin: true
+      //   })
+      // }
     }
   }
 
@@ -75,7 +78,6 @@ class App extends Component {
   }
 
   login = async(e, loginFromForm) => {
-    console.log(this.state.currentUser)
     e.preventDefault();
     try {
       const loginResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
@@ -87,22 +89,36 @@ class App extends Component {
         }
     }) 
       const parsedResponse = await loginResponse.json();
-          if(parsedResponse.status.code === 200){
+      console.log(parsedResponse, '<-----------parsedRE')
+      if(parsedResponse.data.username === "admin"){
+        this.setState({
+          session: parsedResponse.session.username,
+          is_admin: true,
+          logged: true
+        })
+        console.log(this.state, "<---------------state from app for admin")
+        localStorage.setItem('user', JSON.stringify(parsedResponse.session))
+              this.doUpdateCurrentUser(parsedResponse.data)
+              this.props.history.push('/');  
+      }
+         else if(parsedResponse.status.code === 200){
               this.setState({
                 session: parsedResponse.session.username,
                 logged: true
               })
+              console.log(this.state, "<-------------state from app for user")
               localStorage.setItem('user', JSON.stringify(parsedResponse.session))
               this.doUpdateCurrentUser(parsedResponse.data)
-              this.props.history.push('/');
-    }
+              this.props.history.push('/');  
+          }
+    
     } catch(err){
       console.log(err)
     }
   }
  logout = async () => {
    console.log('im logging out')
-     const user = localStorage.removeItem("user")
+     
      const logoutResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
        method: "GET",
        credentials: "include",
@@ -111,9 +127,10 @@ class App extends Component {
        }
      })
      const parsedResponse = await logoutResponse.json();
-     console.log(parsedResponse)
+     console.log(parsedResponse, '<p--parsedre')
      if (parsedResponse.status.code === 
       200) {
+        localStorage.removeItem("user")
         this.setState({
           currentUser: {
             user: ''
@@ -191,7 +208,7 @@ closeAndEdit = async e => {
   render() {
   return ( 
     <main> 
-      <NavHeader currentUser = {this.state.currentUser} logout={this.logout}/>
+      <NavHeader currentUser = {this.state.currentUser} logout={this.logout} logged={this.state.logged}/>
       <Switch> 
         <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} saveEvent={this.saveEvent}/>} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />

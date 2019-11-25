@@ -14,7 +14,8 @@ class Register extends Component {
         username: '',
         password: '',
         email: '',
-        is_admin: false
+        is_admin: false,
+        logged: false
       }
     handleChange = (e) => { // allows us to see the state change in components 
         this.setState({
@@ -32,15 +33,15 @@ class Register extends Component {
               'Content-Type' : 'application/json'
           }
       })
-      console.log('<_____---------------------------')
       const parsedResponse = await registerResponse.json();
-      console.log(parsedResponse, '<-_-__---------------------------------')
       if(parsedResponse.status.message === 'Success'){
+        this.setState({
+          
+        })
           this.props.doUpdateCurrentUser(parsedResponse.data) 
           this.props.history.push('/');
       }
     }
-    
       render() {
         return (
           <Segment>
