@@ -11,7 +11,6 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
-        is_admin: false,
     }
 
     handleChange = (e) => {
@@ -29,7 +28,7 @@ class Login extends Component {
 
             <Label> Password</Label>
             <Form.Input type='password' name="password" value={this.state.password} onChange={this.handleChange} />
-            <Button type="Submit" color="green">Login</Button>
+            <Button type="Submit" color="black">Login</Button>
             </Form>
         </Segment>
         )

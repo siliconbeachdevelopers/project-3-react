@@ -22,6 +22,7 @@ class App extends Component {
   state = {
     currentUser: {},
     logged: false,
+    is_admin: false,
     eventsCreated: [],
     sport: '',
     teams: '',
@@ -46,6 +47,12 @@ class App extends Component {
       this.setState({
         currentUser
       })
+      if(currentUser.username === 'admin'){
+        this.setState({
+          is_admin: true
+        })
+        console.log(currentUser.username)
+      }
     }
   }
   saveEvent = async(id) => {

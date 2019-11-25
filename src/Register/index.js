@@ -3,7 +3,8 @@ import './style.css';
 import { 
     Form, 
     Label, 
-    Button 
+    Button,
+    Segment 
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
@@ -41,7 +42,7 @@ class Register extends Component {
     
       render() {
         return (
-            <div>
+          <Segment>
               <h2>Register</h2>
             <Form onSubmit={this.handleSubmit}>
             <Label> Username</Label>
@@ -52,7 +53,7 @@ class Register extends Component {
             <Form.Input type='password' name="password" onChange={this.handleChange} />
             <Button type="Submit" color="black">Register</Button>
             </Form>
-            </div>
+          </Segment>
             
         )
     }
