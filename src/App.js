@@ -38,12 +38,28 @@ class App extends Component {
       currentUser : user
     })
   }
+
   componentDidMount(){
     this.getEvents();
   }
+
   saveEvent = async(id) => {
-    console.log(id)
+    try {
+      const my_events = await fetch(`${process.env.REACT_APP_API_URL}/user/${this.state.currentUser.id}/my_events`, {
+        method: "PUT",
+        credentials: 'include',
+        body: JSON.stringify(id),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      console.log('WE ARE HERERERE')
+      const myEvents = await my_events.json();
+    } catch(err){
+      console.log(err);
+    }
   }
+
   login = async(e, loginFromForm) => {
     e.preventDefault();
     console.log(loginFromForm, '<---Loginfromtheform')

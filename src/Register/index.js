@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './Register.css'
+
 import { 
     Form, 
     Label, 
@@ -38,14 +40,14 @@ class Register extends Component {
     
       render() {
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form className='formfit' onSubmit={this.handleSubmit}>
             <Label> Username</Label>
             <Form.Input type='text' name="username" onChange={this.handleChange} />
             <Label> Email</Label>
             <Form.Input type='text' name="email" onChange={this.handleChange} />
             <Label> Password</Label>
             <Form.Input type='password' name="password" onChange={this.handleChange} />
-            <Button type="Submit" color="green">Register</Button>
+            <Button type="Submit" color="black">Register</Button>
           </Form>
         )
     }
