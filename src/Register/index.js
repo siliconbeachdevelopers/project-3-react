@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './Register.css'
-
+import './style.css';
 import { 
     Form, 
     Label, 
-    Button 
+    Button,
+    Segment 
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
@@ -31,7 +32,9 @@ class Register extends Component {
               'Content-Type' : 'application/json'
           }
       })
+      console.log('<_____---------------------------')
       const parsedResponse = await registerResponse.json();
+      console.log(parsedResponse, '<-_-__---------------------------------')
       if(parsedResponse.status.message === 'Success'){
           this.props.doUpdateCurrentUser(parsedResponse.data) 
           this.props.history.push('/');
@@ -40,7 +43,10 @@ class Register extends Component {
     
       render() {
         return (
+          <Segment>
+              <h2>Register</h2>
             <Form className='formfit' onSubmit={this.handleSubmit}>
+
             <Label> Username</Label>
             <Form.Input type='text' name="username" onChange={this.handleChange} />
             <Label> Email</Label>
@@ -48,7 +54,9 @@ class Register extends Component {
             <Label> Password</Label>
             <Form.Input type='password' name="password" onChange={this.handleChange} />
             <Button type="Submit" color="black">Register</Button>
-          </Form>
+            </Form>
+          </Segment>
+
         )
     }
 }

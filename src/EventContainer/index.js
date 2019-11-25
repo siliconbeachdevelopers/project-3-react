@@ -52,7 +52,6 @@ class EventContainer extends Component {
       const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
       parsedEvents.events.map(event => {
-        console.log(event.datetime_local)
         const prettyDate = new Date(event.datetime_local)
         event.time = event.datetime_local
         event.datetime_local = prettyDate.toDateString()
