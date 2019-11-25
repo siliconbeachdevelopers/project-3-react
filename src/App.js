@@ -174,7 +174,6 @@ closeAndEdit = async e => {
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
         <Route exact path='/login' render={() => <Login login = {this.login} />} />
-        {/* <Route exact path='/logout' logout={this.logout} /> */}
         <Route exact path='/events/:id' component={EventShow} />
         <Route component={My404} />
       </Switch>

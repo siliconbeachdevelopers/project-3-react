@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.css';
 import { 
     Form, 
     Label, 
@@ -40,6 +41,8 @@ class Register extends Component {
     
       render() {
         return (
+            <div>
+              <h2>Register</h2>
             <Form onSubmit={this.handleSubmit}>
             <Label> Username</Label>
             <Form.Input type='text' name="username" onChange={this.handleChange} />
@@ -47,8 +50,10 @@ class Register extends Component {
             <Form.Input type='text' name="email" onChange={this.handleChange} />
             <Label> Password</Label>
             <Form.Input type='password' name="password" onChange={this.handleChange} />
-            <Button type="Submit" color="green">Register</Button>
-          </Form>
+            <Button type="Submit" color="black">Register</Button>
+            </Form>
+            </div>
+            
         )
     }
 }
