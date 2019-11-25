@@ -1,0 +1,20 @@
+.ui.green.button{
+    background-color: black;
+    color:white;
+  }
+  
+  .formfit{
+    padding-top:16rem;
+    margin-left:100px;
+    margin-right:100px;
+  }
+  
+.ui.label:first-child {
+    background-color:black;
+    color:white;
+  }
+.ui.label{
+  background-color:black;
+  }
+
+ 

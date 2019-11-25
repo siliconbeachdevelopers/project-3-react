@@ -150,10 +150,10 @@ class EventContainer extends Component {
               <span id='venuename'> {e.venueName} </span>
               <Grid.Column>
               <span id='city'> {e.city} </span>
+              </Grid.Column>
               <div className="button">
                   <button onClick={() => this.props.viewEvent(e.id)}>View Event</button>
               </div>
-              </Grid.Column>
               </Grid.Column>
               {/* {e.time}
               </Grid.Column>
@@ -166,11 +166,6 @@ class EventContainer extends Component {
            )
          }
       </Grid>
-      {/* <EventList 
-      events={this.state.events} 
-      deleteEvent={this.deleteEvent}
-      openAndEdit={this.openAndEdit}
-      />  */}
       <EditEventModal 
       eventToEdit={this.state.eventToEdit}
       showEditModal={this.state.showEditModal}
