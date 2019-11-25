@@ -14,7 +14,6 @@ class EventShow extends Component {
             event: parsedEvent.data
         })
     }
-
     render() {
         return (
             <div>

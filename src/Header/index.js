@@ -35,16 +35,15 @@ const NavHeader = props => {
                     ? <Button basic inverted color ="Standard"><NavLink to='/events'>My Events</NavLink></Button>
                     : ''
                 }
-
-                 {
+                {
                     props.logged
                     ?<Button basic inverted color ="Standard"><NavLink to='/logout' onClick={() => {handleClick()}}> Logout </NavLink></Button>
                     : ''
                  }
                  {
                     props.currentUser 
-                    ? <div> {props.currentUser.username}</div>
-                    : null
+                    ? <div> Welcome, {props.currentUser.username}</div>
+                    : ''
                 }
              </List.Item>
              </List>
