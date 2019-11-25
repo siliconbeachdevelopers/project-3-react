@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Register.css'
 import './style.css';
 import { 
     Form, 
@@ -44,7 +45,8 @@ class Register extends Component {
         return (
           <Segment>
               <h2>Register</h2>
-            <Form onSubmit={this.handleSubmit}>
+            <Form className='formfit' onSubmit={this.handleSubmit}>
+
             <Label> Username</Label>
             <Form.Input type='text' name="username" onChange={this.handleChange} />
             <Label> Email</Label>
@@ -54,7 +56,7 @@ class Register extends Component {
             <Button type="Submit" color="black">Register</Button>
             </Form>
           </Segment>
-            
+
         )
     }
 }

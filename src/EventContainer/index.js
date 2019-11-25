@@ -132,20 +132,17 @@ class EventContainer extends Component {
                 <Grid.Column  width={10}>
 
                 <div className="centeritems">
-                <span id='headtitle'> {e.title} </span> <br></br>
-                <br></br>
+                <span id='headtitle'> {e.short_title} </span> <br></br>
                 <br></br>
                 <span id='datetime'> {e.datetime_local } </span><br></br>
-                
                 <Moment className='time'  format={"hh:mm"}>
-                  {new Date(e.time).toString()}
+                {new Date(e.time).toString()}
                 </Moment>pm
                 <br></br>
                 <br></br>
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
-          
                 <div className="button">
-                <Button onClick={() => this.props.showEachEvent()} className="button1" color="black" size='massive'>Go</Button>
+                <Button onClick={() => this.props.showEachEvent()} className="button1" color="black" size='big'>Go</Button>
                 </div>
                 
                 <span id='venuename'> {e.venue.name} </span>
