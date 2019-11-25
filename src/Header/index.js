@@ -21,7 +21,6 @@ const NavHeader = props => {
                     : ''
                 }
                 {
-                    //false 
                     !props.logged
                     ? <Button basic inverted color  ="Standard"><NavLink to='/register'>Register</NavLink></Button>
                     : ''  
