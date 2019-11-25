@@ -118,7 +118,7 @@ class EventContainer extends Component {
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
           
                 <div className="button">
-                  <Link className="button1" to={`events/${e.id}`}>Go</Link>
+                  <button className="button1" to={`events/${e.id}`}>Go</button>
                
                 </div>
                 
