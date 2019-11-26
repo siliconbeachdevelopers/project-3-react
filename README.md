@@ -1,5 +1,14 @@
 # WireFrame
 
+LocalLA Sports Event App
+
+Created a React.js application making API fetch calls to Seat Geek.
+Used React.js to serve the front-end with Javascript methods and functions.
+Served the back-end of the application using Peewee, Flask and Python3.7 functions utilizing SQLite database management.
+Styled and created the visual aspects using Semantic UI/CSS, HTML5, Flex-Box, CSS3.
+Wireframed and planned UI design of application using Trello.
+Made frequent commits using Git control throughout the production of the application.
+
 ## Needed Forms
 ###REACT
 - Register
