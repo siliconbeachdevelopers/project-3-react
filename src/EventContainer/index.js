@@ -15,9 +15,6 @@ class EventContainer extends Component {
         title: '',
         venueName: '',
         city: '',
-        // time: '',
-        // location: '',
-        // tickets: '',
         id: ''
     },
       showEditModal: false 
@@ -93,13 +90,12 @@ class EventContainer extends Component {
 }
 
   render(){
-    console.log(this.props.viewEvent, 'this is edit')
     return (
     <div className='uigrid'>
       <Grid >
           {
            this.state.events.map(e => 
-              <Grid.Row className='border'>
+              <Grid.Row className='border' >
                 <Grid.Column width={3}>                  
                   <Image src={e.strSportThumb} />                 
                   <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" />
@@ -108,8 +104,8 @@ class EventContainer extends Component {
                 </Grid.Column>   
                 </Grid.Column>
                 
-                <Grid.Column  width={10}>
-
+                <Grid.Column className="grid"  width={10}>
+              
                 <div className="centeritems">
                 <span id='headtitle'> {e.title} </span> <br></br>
                 <br></br>
@@ -117,14 +113,13 @@ class EventContainer extends Component {
                 <br></br>
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
           
-                <div className="button">
-                  <button className="button1" to={`events/${e.id}`}>Go</button>
-               
-                </div>
-                
                 <span id='venuename'> {e.venue.name} </span>
                 <span id='city'> {e.venue.display_location} </span>
                 </div>
+                
+                <button className="buytickets">
+                  <a href={e.url}target="_blank">Buy Tickets</a>
+                </button>
 
                 </Grid.Column>                
                 <Grid.Column width={3}>
@@ -136,13 +131,13 @@ class EventContainer extends Component {
           }
           {
           this.props.eventsCreated.map((e, i) =>
-            <div>
+          <div>
+          <button class='deletebutton' onClick={() => this.props.deleteEvent(e.id)}>Delete Event</button>
+          <button class='editbutton' onClick={() => this.openAndEdit(e.id)}>Edit Event</button>
             <Grid.Row>
               <Grid.Column width={3}>
               <Image src={e.image} />
               </Grid.Column>
-              <Button onClick={() => this.props.deleteEvent(e.id)}>Delete Event</Button>
-              <Button onClick={() => this.openAndEdit(e.id)}>Edit Event</Button>
               <Grid.Column width={10}>
               <span id='headtitle'> {e.title} </span>
               </Grid.Column>
@@ -151,16 +146,10 @@ class EventContainer extends Component {
               <Grid.Column>
               <span id='city'> {e.city} </span>
               </Grid.Column>
-              <div className="button">
-                  <button onClick={() => this.props.viewEvent(e.id)}>View Event</button>
+              <div className="vieweventbutton">
+                  <button onClick={(click) => this.props.doUpdateEvent(click, e)}>View Event</button>
               </div>
               </Grid.Column>
-              {/* {e.time}
-              </Grid.Column>
-              {e.location} */}
-              {/* <Grid.Column>
-              {e.tickets}
-              </Grid.Column> */}
             </Grid.Row>
             </div>
            )

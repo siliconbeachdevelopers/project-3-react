@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+// import './EventShow.css';
 import EventContainer from './EventContainer';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Register from './Register';
@@ -23,13 +24,6 @@ class App extends Component {
     logged: false,
     is_admin: false,
     eventsCreated: [],
-    sport: '',
-    teams: '',
-    date: '',
-    time: '',
-    location: '',
-    tickets: '',
-    id: ''
   }
   
   doUpdateCurrentUser = (user) => {
@@ -37,6 +31,14 @@ class App extends Component {
     this.setState({
       currentUser : user
     })
+  }
+
+  doUpdateEvent = (e, event) => {
+    e.preventDefault()
+    this.setState({
+      event: event
+    })
+    this.props.history.push('/events/showpage')
   }
 
   componentDidMount(){
@@ -213,10 +215,10 @@ closeAndEdit = async e => {
     <main> 
       <NavHeader currentUser = {this.state.currentUser} logout={this.logout}/>
       <Switch> 
-        <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} viewEvent={this.viewEvent} />} />
+        <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} viewEvent={this.viewEvent} doUpdateEvent={this.doUpdateEvent}/>} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
-        <Route exact path='/events/:id' render={(props) => <EventShow event={this.state.event} {...props} />} />
+        <Route exact path='/events/showpage' render={() => <EventShow event={this.state.event} />} />
     
 
         <Route component={My404} />

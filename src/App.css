@@ -21,6 +21,18 @@
   color: #09d3ac;
 }
 
+.eventAtt {
+  text-align: center;
+  color: black;
+  position: relative;
+  top: 185px;
+  font-size: 35px;
+  font-weight: 900;
+  border-width: 2px solid grey;
+  line-height: 33px;
+
+  
+}
 
 
 
