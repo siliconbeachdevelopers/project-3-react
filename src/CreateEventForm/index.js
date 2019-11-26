@@ -24,7 +24,7 @@ class CreateEvent extends Component {
   render(){
     return (
       <Segment>
-        <h4>Create Event</h4>
+        <h2>Create Event</h2>
         <Form onSubmit={(e) => this.props.addEvent(e, this.state)}>
           
         <Label>What's The Event?:</Label>
@@ -35,7 +35,7 @@ class CreateEvent extends Component {
         
         <Label>City:</Label>
         <Form.Input type='text' name='city' value={this.state.city} onChange={this.handleChange}/>
-        <Button type='Submit'>Create Event</Button>
+        <Button type='Submit' color='black'>Create Event</Button>
         </Form>
       </Segment>
       )

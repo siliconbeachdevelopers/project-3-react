@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
 import Moment from 'react-moment';
-import { Grid, Image, Button, Icon } from 'semantic-ui-react'
+import { Grid, Image, Button, Icon, Pagination } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import './EventContainer.css'
 
@@ -10,6 +10,7 @@ function toStandardTime(militaryTime) {
   militaryTime = militaryTime.split(':');
   return (militaryTime[0].charAt(0) == 1 && militaryTime[0].charAt(1) > 2) ? (militaryTime[0] - 12) + ':' + militaryTime[1] + ':' + militaryTime[2] + ' P.M.' : militaryTime.join(':') + ' A.M.'
 }
+
 class EventContainer extends Component {
   constructor(props){
     super(props);
@@ -34,25 +35,24 @@ class EventContainer extends Component {
   }
 
 
-  showEachEvent = async () => {
-    try {
-      const eachEvent = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
-      const parsedEachEvent = await eachEvent.json();
-      console.log(parsedEachEvent)
-        this.setState({
-        eachEvent: parsedEachEvent.eachEvent
-    })
-  } catch(err){
-    console.log(err);
-  }
-}
+//   showEachEvent = async () => {
+//     try {
+//       const eachEvent = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
+//       const parsedEachEvent = await eachEvent.json();
+//       console.log(parsedEachEvent)
+//         this.setState({
+//         eachEvent: parsedEachEvent.eachEvent
+//     })
+//   } catch(err){
+//     console.log(err);
+//   }
+// }
 
   getEvents = async () => {
     try {
-      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
+      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=20&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
       parsedEvents.events.map(event => {
-        console.log(event.datetime_local)
         const prettyDate = new Date(event.datetime_local)
         event.time = event.datetime_local
         event.datetime_local = prettyDate.toDateString()
@@ -106,7 +106,7 @@ class EventContainer extends Component {
         this.setState({
           showEditModal: false
         })
-}
+  }
 
   render(){
     const dateToFormat = '1976-04-19T12:59-0500';
@@ -141,7 +141,7 @@ class EventContainer extends Component {
                 
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
                 <div className="button">
-                <Button onClick={() => this.props.showEachEvent()} className="button1" color="black" size='big'>Go</Button>
+                <Button onClick={() => this.props.showEachEvent()} className="button1" color="black" size='big'>Buy Tickets</Button>
                 </div>
                  <span id='venuename'> {e.venue.name} </span>
                 <span id='city'> {e.venue.display_location} </span>
@@ -194,6 +194,7 @@ class EventContainer extends Component {
       closeAndEdit={this.closeAndEdit}
       />
     </div>
+    
     )
   }
 }
