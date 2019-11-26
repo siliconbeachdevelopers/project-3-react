@@ -13,3 +13,8 @@ Form {
 .ui.form{
     padding-top: 0;
 }
+
+Form.Input {
+    width: 50%;
+}
+

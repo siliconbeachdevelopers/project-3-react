@@ -22,14 +22,15 @@ class App extends Component {
     currentUser: {},
     is_admin: false,
     logged: false,
+    event: {},
     eventsCreated: [],
-    sport: '',
-    teams: '',
-    date: '',
-    time: '',
-    location: '',
-    tickets: '',
-    id: ''
+    // sport: '',
+    // teams: '',
+    // date: '',
+    // time: '',
+    // location: '',
+    // tickets: '',
+    // id: ''
   }
   
   doUpdateCurrentUser = (user) => {
@@ -51,11 +52,6 @@ class App extends Component {
       if(user.length > 1){
         localStorage.removeItem("user")
       }
-      // if(currentUser.username === 'admin'){
-      //   this.setState({
-      //     is_admin: true
-      //   })
-      // }
     }
   }
 
@@ -203,7 +199,6 @@ closeAndEdit = async e => {
   console.log(err)
 }
 }
-
   render() {
   return ( 
     <main> 
