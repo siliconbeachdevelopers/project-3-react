@@ -34,14 +34,14 @@ class EventContainer extends Component {
   getEvents = async () => {
 
     try {
-      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=20&client_id=${process.env.REACT_APP_API_KEY}`);
+      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
       parsedEvents.events.map(event => {
         const prettyDate = new Date(event.datetime_local)
         event.datetime_local = prettyDate.toDateString()
       })
       this.setState({
-        events: parsedEvents.events 
+        events: parsedEvents.events
   
       })
     } catch(err){
@@ -100,35 +100,27 @@ class EventContainer extends Component {
            this.state.events.map(e => 
               <Grid.Row className='border' >
                 <Grid.Column width={3}>                  
-                  <Image src={e.strSportThumb} />                 
+                  <Image src={e.strSportThumb} />     
                   <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" />
                 <Grid.Column width={9}>
-             
-
                 </Grid.Column>   
                 </Grid.Column>
-                
                 <Grid.Column className="grid"  width={10}>
-              
                 <div className="centeritems">
-                <span id='headtitle'> {e.title} </span> <br></br>
-                <br></br>
-                <span id='datetime'> {e.datetime_local } </span>
-                <br></br>
-                <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
-
-                <span id='venuename'> {e.venue.name} </span>
-                <span id='city'> {e.venue.display_location} </span>
+                  <span id='headtitle'> {e.title} </span> <br></br>
+                  <br></br>
+                  <span id='datetime'> {e.datetime_local } </span>
+                  <br></br>
+                  <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
+                  <span id='venuename'> {e.venue.name} </span>
+                  <span id='city'> {e.venue.display_location} </span>
                 </div>
-                
-                <button className="buytickets">
-                  <a href={e.url}target="_blank">Buy Tickets</a>
-                </button>
-
+                  <button className="buytickets">
+                    <a href={e.url}target="_blank">Buy Tickets</a>
+                  </button>
                 </Grid.Column>                
                 <Grid.Column width={3}>
                 <Image id='imagecover' src={e.performers[0].image} />
-                  
                 </Grid.Column>
               </Grid.Row>
             )
@@ -136,26 +128,26 @@ class EventContainer extends Component {
           {
           this.props.eventsCreated.map((e, i) =>
           <div>
-          <button class='deletebutton' onClick={() => this.props.deleteEvent(e.id)}>Delete Event</button>
-          <button class='editbutton' onClick={() => this.openAndEdit(e.id)}>Edit Event</button>
+            <button class='deletebutton' onClick={() => this.props.deleteEvent(e.id)}>Delete Event</button>
+            <button class='editbutton' onClick={() => this.openAndEdit(e.id)}>Edit Event</button>
             <Grid.Row>
               <Grid.Column width={3}>
-              <Image src={e.image} />
+                <Image src={e.image} />
               </Grid.Column>
               <Grid.Column width={10}>
-              <span id='headtitle'> {e.title} </span>
+                <span id='headtitle'> {e.title} </span>
               </Grid.Column>
               <Grid.Column width={3}>
-              <span id='venuename'> {e.venueName} </span>
+                <span id='venuename'> {e.venueName} </span>
               <Grid.Column>
-              <span id='city'> {e.city} </span>
+                <span id='city'> {e.city} </span>
               </Grid.Column>
-              <div className="vieweventbutton">
+            <div className="vieweventbutton">
                   <button onClick={(click) => this.props.doUpdateEvent(click, e)}>View Event</button>
-              </div>
+            </div>
               </Grid.Column>
             </Grid.Row>
-            </div>
+          </div>
            )
          }
       </Grid>

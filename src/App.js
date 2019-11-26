@@ -34,10 +34,12 @@ class App extends Component {
     console.log(user.username)
     if(user.username === 'admin'){
       this.setState({
-        is_admin: true
+        user: {
+          is_admin: true
+        }
       })
     }
-    console.log(user)
+    console.log(user, '<-----user')
   }
 
   doUpdateEvent = (e, event) => {
@@ -100,6 +102,7 @@ class App extends Component {
           logged: true
         })
         console.log(this.state, "<---------------state from app for admin")
+       
         localStorage.setItem('user', JSON.stringify(parsedResponse.session))
               this.doUpdateCurrentUser(parsedResponse.data)
               this.props.history.push('/');  
@@ -120,15 +123,14 @@ class App extends Component {
   }
  logout = async () => {
      const logoutResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
-       method: "GET",
+       
        credentials: "include",
        headers: {
          "Content-Type": "application/json"
        }
      })
      const logoutParsedResponse = await logoutResponse.json();
-     if (logoutParsedResponse.status.code === 
-      200) {
+     if (logoutParsedResponse.status.code === 200){
         localStorage.removeItem("user")
         this.setState({
           currentUser: {

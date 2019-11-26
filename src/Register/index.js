@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './Register.css'
+import Image from '../images/lakers.jpg'
 import './Register.css';
 import { 
     Form, 
@@ -8,6 +8,12 @@ import {
     Segment 
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+
+const sectionStyle = {
+  width: "100%",
+  height: "400px",
+  backgroundImage: `url(${Image})`
+}
 
 class Register extends Component {
     state = {
@@ -43,6 +49,7 @@ class Register extends Component {
     }
     render() {
         return (
+          
           <div class="form">
           <Segment>
               <h2>Register</h2>
@@ -57,8 +64,9 @@ class Register extends Component {
             </Form>
           </Segment>
           </div>
-
+        
         )
+        
     }
 }
 
