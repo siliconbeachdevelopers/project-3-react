@@ -1,6 +1,7 @@
 
 /* #root{
  background-color:black;
+ height: 100em;
 } */
 
 .uigrid{
@@ -11,7 +12,7 @@
 .buytickets {
     position: relative;
     padding: 3%;
-    left: 40%;
+    left: 39%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,11 +68,27 @@ line-height: 27px;;
 }
 
 .deletebutton {
-    color: black;
+    position: relative;
+    padding: 3%;
+    left: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0%;
+    text-align: center;
+    font-size: large;
+
 }
 
 .editbutton {
-    color: black;
+    padding: 3%;
+    left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0%;
+    text-align: center;
+    font-size: large;
 }
 
 .Button1    {
@@ -98,18 +115,50 @@ line-height: 27px;;
     margin-top:75px;
     margin-right:100px;
     border-image: 5px solid black;
-    z-index: -1;
+}
 
+#createdtitle{
+    font-size: 35px;
+    position: relative;
+    right: -145%;
+    font-weight: 900;
+    border-width: 2px solid grey;
+    line-height: 33px;
+    text-align: center;
+}
+#createdname{
+    font-size: 20px;
+    position: relative;
+    right: -145%;
+    font-weight: 900;
+    border-width: 2px solid grey;
+    line-height: 33px;
+    text-align: center;
+}
+
+#createdstuff{
+    color: green;
+}
+
+#createdcity{
+    font-size: 20px;
+    position: relative;
+    right: -145%;
+    font-weight: 900;
+    border-width: 2px solid grey;
+    line-height: 33px;
+    text-align: center;
 }
 
 .vieweventbutton{
     position: relative;
+    right: 45%;
     padding: 3%;
-    left: 100%;
+    left: 140%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 0%;
+    margin-top: 7%;
     text-align: center;
     font-size: large;
 }
@@ -135,4 +184,5 @@ line-height: 27px;;
     color:black;
     line-height: 27px;;
 }
+
 

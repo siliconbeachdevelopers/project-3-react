@@ -8,7 +8,6 @@ const NavHeader = props => {
     const handleClick = () => {
         props.logout();
     }
-
     return ( 
         <Header className="navbar">
             <List className="centeritems">
@@ -41,7 +40,7 @@ const NavHeader = props => {
                  }
                  {
                     props.currentUser 
-                    ? <div> Welcome {props.currentUser.username}</div>
+                    ? <div class="welcome"> Welcome {props.currentUser.username}</div>
                     : ''
                 }
              </List.Item>
