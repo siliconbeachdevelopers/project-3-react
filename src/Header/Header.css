@@ -1,6 +1,6 @@
 .navbar{
     display:flex;
-    position: fixed;
+
     flex-wrap: wrap;
     flex-shrink: inherit;
     flex-direction: column;
@@ -53,7 +53,7 @@
     padding-top: 8px;
 }
 .uigrid{
-    padding-top:16rem;
+    padding-top:3rem;
 }
 .descript{
     margin-left: 30px;

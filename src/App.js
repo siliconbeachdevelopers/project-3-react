@@ -45,16 +45,20 @@ class App extends Component {
 
   saveEvent = async(id) => {
     try {
-      const my_events = await fetch(`${process.env.REACT_APP_API_URL}/user/${this.state.currentUser.id}/my_events`, {
-        method: "PUT",
+      const request = {
+        user: this.state.currentUser.id,
+        event: id
+      }
+      console.log(request)
+      const userEvents = await fetch(`${process.env.REACT_APP_API_URL}/userEvent/`, {
+        method: "POST",
         credentials: 'include',
-        body: JSON.stringify(id),
+        body: JSON.stringify(request),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      console.log('WE ARE HERERERE')
-      const myEvents = await my_events.json();
+      const userEventparsed = await userEvents.json();
     } catch(err){
       console.log(err);
     }
