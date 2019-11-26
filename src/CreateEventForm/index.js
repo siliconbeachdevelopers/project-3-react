@@ -12,11 +12,8 @@ class CreateEvent extends Component {
       title:'',
       venueName:'',
       city:'',
-      // time:'',
-      // location:'',
-      // tickets:'',
-      // image:''
     }
+    
   handleChange = (e) => {
       this.setState({[e.currentTarget.name]: e.currentTarget.value})
   }

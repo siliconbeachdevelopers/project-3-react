@@ -3,10 +3,26 @@
  background-color:black;
 }
 
-
 .uigrid{
     margin-right:100px;
     margin-left:130px;
+}
+
+.buytickets {
+    position: relative;
+    padding: 3%;
+    left: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.buytickets a{
+    color: black;
+    font-size: large;
+    font-weight: bold;
+    font-style: italic;
 }
 
 #headtitle{
@@ -14,6 +30,7 @@
  font-weight: 900;
  border-width: 2px solid grey;
  line-height: 33px;
+ text-align: center;
 }
 
 #city{
@@ -39,15 +56,22 @@ line-height: 27px;;
     padding: 2rem;
     font-weight: bolder;
     font-size:30px;
- 
 }
+
 .centeritems{
     text-align: center;
-   
 }
 
 #Icon{
     margin-top: 250px;
+}
+
+.deletebutton {
+    color: black;
+}
+
+.editbutton {
+    color: black;
 }
 
 .Button1    {
@@ -56,10 +80,8 @@ line-height: 27px;;
     background-color:black;
     color: white;
     height:50px;
-   
-   
-   
 }
+
 
 #lowprice{
     position:relative;
@@ -76,18 +98,22 @@ line-height: 27px;;
     margin-top:75px;
     margin-right:100px;
     border-image: 5px solid black;
-    
-    
+    z-index: -1;
 
-    
 }
-.button{
+
+.vieweventbutton{
+    position: relative;
+    padding: 3%;
+    left: 100%;
+    display: flex;
     flex-direction: column;
-    margin-top: 40px;
-    
-  
-   
+    align-items: center;
+    margin-top: 0%;
+    text-align: center;
+    font-size: large;
 }
+
 .time{
     font-weight: bolder;
     font-size:24px; 
@@ -99,5 +125,14 @@ line-height: 27px;;
    margin-bottom: 1rem;
    background:white;
    
+}
+
+.eventAtt {
+    font-weight:bold;
+    display:block;
+    margin-top:30px;
+    font-size: 22px;
+    color:black;
+    line-height: 27px;;
 }
 
