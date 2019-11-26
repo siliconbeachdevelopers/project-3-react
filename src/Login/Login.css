@@ -1,7 +1,15 @@
-.ui.form{
-    padding-top:18rem;
-    margin-left:100px;
-    margin-right:100px;
-    max-width:100%;
+.form {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* align-content: center; */
+    padding-top: 200px;
 }
-
+Form {
+    padding-top: 100px;
+    width: 500px;
+}
+.ui.form{
+    padding-top: 0;
+}

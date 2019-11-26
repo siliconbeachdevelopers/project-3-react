@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './Register.css'
-import './style.css';
+// import './Register.css'
+import './Register.css';
 import { 
     Form, 
     Label, 
@@ -44,7 +44,7 @@ class Register extends Component {
     }
       render() {
         return (
-          <Segment>
+          <Segment className='form'>
               <h2>Register</h2>
             <Form className='formfit' onSubmit={this.handleSubmit}>
 
