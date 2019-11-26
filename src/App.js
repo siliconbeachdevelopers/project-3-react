@@ -29,7 +29,14 @@ class App extends Component {
   doUpdateCurrentUser = (user) => {
     this.setState({
       currentUser : user,
+      logged: true
     })
+    console.log(user.username)
+    if(user.username === 'admin'){
+      this.setState({
+        is_admin: true
+      })
+    }
     console.log(user)
   }
 
@@ -44,38 +51,34 @@ class App extends Component {
   componentDidMount(){
     this.getEvents();
     const user = localStorage.getItem('user')
-    
     if(user){
       const currentUser = JSON.parse(user)
       this.setState({
-        currentUser
+        currentUser,
+        logged: true
       })
-      if(user.length > 1){
-        localStorage.removeItem("user")
-      }
     }
   }
-
-  saveEvent = async(id) => {
-    try {
-      const request = {
-        user: this.state.currentUser.id,
-        event: id
-      }
-      console.log(request)
-      const userEvents = await fetch(`${process.env.REACT_APP_API_URL}/userEvent/`, {
-        method: "POST",
-        credentials: 'include',
-        body: JSON.stringify(request),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const userEventparsed = await userEvents.json();
-    } catch(err){
-      console.log(err);
-    }
-  }
+  // saveEvent = async(id) => {
+  //   try {
+  //     const request = {
+  //       user: this.state.currentUser.id,
+  //       event: id
+  //     }
+  //     console.log(request)
+  //     const userEvents = await fetch(`${process.env.REACT_APP_API_URL}/userEvent/`, {
+  //       method: "POST",
+  //       credentials: 'include',
+  //       body: JSON.stringify(request),
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     })
+  //     const userEventparsed = await userEvents.json();
+  //   } catch(err){
+  //     console.log(err);
+  //   }
+  // }
 
   login = async(e, loginFromForm) => {
     e.preventDefault();
@@ -100,8 +103,8 @@ class App extends Component {
         localStorage.setItem('user', JSON.stringify(parsedResponse.session))
               this.doUpdateCurrentUser(parsedResponse.data)
               this.props.history.push('/');  
-      }
-         else if(parsedResponse.status.code === 200){
+        }
+        else if(parsedResponse.status.code === 200){
               this.setState({
                 session: parsedResponse.session.username,
                 logged: true
@@ -110,14 +113,12 @@ class App extends Component {
               localStorage.setItem('user', JSON.stringify(parsedResponse.session))
               this.doUpdateCurrentUser(parsedResponse.data)
               this.props.history.push('/');  
-          }
-    
+        }
     } catch(err){
       console.log(err)
     }
   }
  logout = async () => {
-   
      const logoutResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
        method: "GET",
        credentials: "include",
@@ -125,9 +126,8 @@ class App extends Component {
          "Content-Type": "application/json"
        }
      })
-     const parsedResponse = await logoutResponse.json();
-   
-     if (parsedResponse.status.code === 
+     const logoutParsedResponse = await logoutResponse.json();
+     if (logoutParsedResponse.status.code === 
       200) {
         localStorage.removeItem("user")
         this.setState({
@@ -150,7 +150,6 @@ class App extends Component {
       console.log(err);
     }
   }
-
   viewEvent = async (id) => {
     console.log('view event')
     try {

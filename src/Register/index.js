@@ -33,6 +33,10 @@ class Register extends Component {
       })
       const parsedResponse = await registerResponse.json();
       if(parsedResponse.status.message === 'Success'){
+        this.setState({
+          session: parsedResponse.session.username
+        })
+        localStorage.setItem('user', JSON.stringify(parsedResponse.session))
           this.props.doUpdateCurrentUser(parsedResponse.data) 
           this.props.history.push('/')
       }
