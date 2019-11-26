@@ -1,3 +1,8 @@
+
+#root{
+ background-color:black;
+}
+
 .uigrid{
     margin-right:100px;
     margin-left:130px;
@@ -94,6 +99,7 @@ line-height: 27px;;
     margin-right:100px;
     border-image: 5px solid black;
     z-index: -1;
+
 }
 
 .vieweventbutton{
@@ -117,6 +123,7 @@ line-height: 27px;;
    display:flex;
    flex-shrink: inherit;
    margin-bottom: 1rem;
+   background:white;
    
 }
 

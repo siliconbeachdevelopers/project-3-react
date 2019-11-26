@@ -103,7 +103,8 @@ class EventContainer extends Component {
                   <Image src={e.strSportThumb} />                 
                   <Icon id="Icon" name="bookmark outline" size="huge" corner="bottom left" />
                 <Grid.Column width={9}>
-                  {/* <Button onClick={() => this.deleteEvent(e.id)}>Delete Event</Button> */}
+             
+
                 </Grid.Column>   
                 </Grid.Column>
                 
