@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import EventList from '../EventList';
 import EditEventModal from '../EditEventModal'
-import { Grid, Image, Button, Icon } from 'semantic-ui-react'
-import { withRouter, Link} from 'react-router-dom'
+import Moment from 'react-moment';
+import { Grid, Image, Button, Icon, Pagination } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 import './EventContainer.css'
+
+function toStandardTime(militaryTime) {
+  militaryTime = militaryTime.split(':');
+  return (militaryTime[0].charAt(0) == 1 && militaryTime[0].charAt(1) > 2) ? (militaryTime[0] - 12) + ':' + militaryTime[1] + ':' + militaryTime[2] + ' P.M.' : militaryTime.join(':') + ' A.M.'
+}
 
 class EventContainer extends Component {
   constructor(props){
@@ -25,11 +31,10 @@ class EventContainer extends Component {
     this.getEvents();
   }
 
-
   getEvents = async () => {
 
     try {
-      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=50&client_id=${process.env.REACT_APP_API_KEY}`);
+      const events = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=sports&postal_code=90015&per_page=20&client_id=${process.env.REACT_APP_API_KEY}`);
       const parsedEvents = await events.json();
       parsedEvents.events.map(event => {
         const prettyDate = new Date(event.datetime_local)
@@ -85,9 +90,7 @@ class EventContainer extends Component {
         this.setState({
           showEditModal: false
         })
-
-  
-}
+    }
 
   render(){
     return (
@@ -112,7 +115,7 @@ class EventContainer extends Component {
                 <span id='datetime'> {e.datetime_local } </span>
                 <br></br>
                 <span id='lowprice'> Lowest Price $ {e.stats.lowest_price} </span>
-          
+
                 <span id='venuename'> {e.venue.name} </span>
                 <span id='city'> {e.venue.display_location} </span>
                 </div>
@@ -162,6 +165,7 @@ class EventContainer extends Component {
       closeAndEdit={this.closeAndEdit}
       />
     </div>
+    
     )
   }
 }

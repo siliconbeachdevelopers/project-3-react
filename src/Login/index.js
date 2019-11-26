@@ -21,7 +21,8 @@ class Login extends Component {
     }
     render(){
         return(
-        <Segment className='loginform'>
+        <div class="form">
+        <Segment className='form'>
             <h2>Login</h2>
             <Form onSubmit={(e) => this.props.login(e, this.state)}>
             <Label> Username</Label>
@@ -31,6 +32,7 @@ class Login extends Component {
             <Button type="Submit" color="black">Login</Button>
             </Form>
         </Segment>
+        </div>
         )
     }
 

@@ -11,7 +11,6 @@ class EventShow extends Component {
 
     getEvent = async () => {
     }
-
     render() {
 
         return (
