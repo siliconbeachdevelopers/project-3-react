@@ -20,6 +20,7 @@ class CreateEvent extends Component {
 
   render(){
     return (
+      <div class="form">
       <Segment>
         <h2>Create Event</h2>
         <Form onSubmit={(e) => this.props.addEvent(e, this.state)}>
@@ -35,6 +36,7 @@ class CreateEvent extends Component {
         <Button type='Submit' color='black'>Create Event</Button>
         </Form>
       </Segment>
+      </div>
       )
   }
 }

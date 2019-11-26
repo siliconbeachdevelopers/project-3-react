@@ -26,7 +26,7 @@ class Login extends Component {
             <h2>Login</h2>
             <Form onSubmit={(e) => this.props.login(e, this.state)}>
             <Label> Username</Label>
-            <Form.Input type='text' name="username" value={this.state.username} onChange={this.handleChange}/>
+            <Form.Input class="input" type='text' name="username" value={this.state.username} onChange={this.handleChange}/>
             <Label> Password</Label>
             <Form.Input type='password' name="password" value={this.state.password} onChange={this.handleChange} />
             <Button type="Submit" color="black">Login</Button>

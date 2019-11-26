@@ -13,7 +13,6 @@ const NavHeader = props => {
         <Header className="navbar">
             <List className="centeritems">
              <List.Item   >
-               
                  <Button basic inverted color ="Standard"><NavLink to='/'> Home </NavLink></Button>
                 {
                     props.currentUser.username === 'admin' 
@@ -42,7 +41,7 @@ const NavHeader = props => {
                  }
                  {
                     props.currentUser 
-                    ? <div> Welcome, {props.currentUser.username}</div>
+                    ? <div> Welcome {props.currentUser.username}</div>
                     : ''
                 }
              </List.Item>

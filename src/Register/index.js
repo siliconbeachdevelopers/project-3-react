@@ -43,7 +43,8 @@ class Register extends Component {
     }
     render() {
         return (
-          <Segment className='form'>
+          <div class="form">
+          <Segment>
               <h2>Register</h2>
             <Form className='formfit' onSubmit={this.handleSubmit}>
             <Label> Username</Label>
@@ -55,6 +56,7 @@ class Register extends Component {
             <Button type="Submit" color="black">Register</Button>
             </Form>
           </Segment>
+          </div>
 
         )
     }

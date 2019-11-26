@@ -1,6 +1,5 @@
 .navbar{
     display:flex;
-
     flex-wrap: wrap;
     flex-shrink: inherit;
     flex-direction: column;
@@ -19,6 +18,7 @@
     margin-left:50px;
     margin-right:75px;
    }
+
 .ui.list>.item a {
   
     color:black;
@@ -59,4 +59,8 @@
     margin-left: 30px;
     font-weight:600;
     font-size:20px;
+}
+
+.ui.basic.inverted.button {
+
 }
