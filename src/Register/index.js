@@ -14,8 +14,6 @@ class Register extends Component {
         username: '',
         password: '',
         email: '',
-        is_admin: false,
-        logged: false
       }
     handleChange = (e) => { // allows us to see the state change in components 
         this.setState({
@@ -27,7 +25,7 @@ class Register extends Component {
       e.preventDefault();
       const registerResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/register`, {
           method: "POST",
-          credentials: 'include',
+          credentials: "include",
           body: JSON.stringify(this.state),
           headers: {
               'Content-Type' : 'application/json'
@@ -35,19 +33,15 @@ class Register extends Component {
       })
       const parsedResponse = await registerResponse.json();
       if(parsedResponse.status.message === 'Success'){
-        this.setState({
-          
-        })
           this.props.doUpdateCurrentUser(parsedResponse.data) 
-          this.props.history.push('/');
+          this.props.history.push('/')
       }
     }
-      render() {
+    render() {
         return (
           <Segment className='form'>
               <h2>Register</h2>
             <Form className='formfit' onSubmit={this.handleSubmit}>
-
             <Label> Username</Label>
             <Form.Input type='text' name="username" onChange={this.handleChange} />
             <Label> Email</Label>

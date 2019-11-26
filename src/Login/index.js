@@ -22,7 +22,7 @@ class Login extends Component {
     render(){
         return(
         <div class="form">
-        <Segment className='form'>
+        <Segment >
             <h2>Login</h2>
             <Form onSubmit={(e) => this.props.login(e, this.state)}>
             <Label> Username</Label>

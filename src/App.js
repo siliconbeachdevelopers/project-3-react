@@ -19,7 +19,6 @@ const My404 = () => {
 
 class App extends Component {
   state = {
-    event: {},
     currentUser: {},
     is_admin: false,
     logged: false,
@@ -118,8 +117,7 @@ class App extends Component {
     }
   }
  logout = async () => {
-   console.log('im logging out')
-     
+   
      const logoutResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
        method: "GET",
        credentials: "include",
@@ -128,7 +126,7 @@ class App extends Component {
        }
      })
      const parsedResponse = await logoutResponse.json();
-     console.log(parsedResponse, '<p--parsedre')
+   
      if (parsedResponse.status.code === 
       200) {
         localStorage.removeItem("user")
@@ -234,6 +232,7 @@ closeAndEdit = async e => {
         <Route exact path='/' render={() => <EventContainer deleteEvent={this.deleteEvent} eventsCreated={this.state.eventsCreated} editEvent={this.closeAndEdit} viewEvent={this.viewEvent} doUpdateEvent={this.doUpdateEvent}/>} />
         <Route exact path='/events/new' render={() => <CreateEvent  addEvent={this.addEvent}/>} />
         <Route exact path='/register' render={() => <Register doUpdateCurrentUser = {this.doUpdateCurrentUser} />} />
+        <Route exact path='/login' render={() => <Login login = {this.login} />} />
         <Route exact path='/events/showpage' render={() => <EventShow event={this.state.event} />} />
     
 
